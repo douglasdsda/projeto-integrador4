@@ -6,8 +6,6 @@ public enum TipoInteresse {
 	TENHO_INTERESSE(2),
 	NÃO_COMPARECEREI(3),
 	INDIFERENTE(4);
-	
-	
 
 	private int codigo;
 

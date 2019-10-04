@@ -64,9 +64,8 @@ public class Usuario implements Serializable {
 	
 	
 	// INTERESSE
-	
-		@OneToMany(mappedBy = "id.participantes")
-		private Set<Interesse> interesses = new HashSet<>();
+	@OneToMany(mappedBy = "id.participantes")
+	private Set<Interesse> interesses = new HashSet<>();
 
 	public Usuario() {
 	}

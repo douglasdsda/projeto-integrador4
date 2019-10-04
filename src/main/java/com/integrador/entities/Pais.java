@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,7 +27,7 @@ public class Pais implements Serializable {
 	@Column(name = "NOME")
 	private String nome;
 	
-	@OneToMany
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pais")
 	private Set<Estado> estados = new HashSet<>();
 	
 	public Pais() {

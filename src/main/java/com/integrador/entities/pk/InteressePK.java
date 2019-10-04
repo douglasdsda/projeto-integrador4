@@ -16,18 +16,18 @@ public class InteressePK implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name = "EVENTO_ID")
-	private Evento ventos;
+	private Evento eventos;
 	
 	@ManyToOne
 	@JoinColumn(name = "USUARIO_ID")
 	private Usuario participantes;
 
-	public Evento getVentos() {
-		return ventos;
+	public Evento getEventos() {
+		return eventos;
 	}
 
-	public void setVentos(Evento ventos) {
-		this.ventos = ventos;
+	public void setEventos(Evento eventos) {
+		this.eventos = eventos;
 	}
 
 	public Usuario getParticipantes() {
@@ -42,8 +42,8 @@ public class InteressePK implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((eventos == null) ? 0 : eventos.hashCode());
 		result = prime * result + ((participantes == null) ? 0 : participantes.hashCode());
-		result = prime * result + ((ventos == null) ? 0 : ventos.hashCode());
 		return result;
 	}
 
@@ -56,19 +56,16 @@ public class InteressePK implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		InteressePK other = (InteressePK) obj;
+		if (eventos == null) {
+			if (other.eventos != null)
+				return false;
+		} else if (!eventos.equals(other.eventos))
+			return false;
 		if (participantes == null) {
 			if (other.participantes != null)
 				return false;
 		} else if (!participantes.equals(other.participantes))
 			return false;
-		if (ventos == null) {
-			if (other.ventos != null)
-				return false;
-		} else if (!ventos.equals(other.ventos))
-			return false;
 		return true;
 	}
-	
-	
-
 }

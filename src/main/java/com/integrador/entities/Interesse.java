@@ -29,12 +29,12 @@ public class Interesse implements Serializable {
 	public Interesse() {
 	}
 
-	public Interesse(Usuario participantes,  Evento ventos,  TipoInteresse tipoInteresse, Instant momento) {
+	public Interesse(Usuario participantes,  Evento eventos,  TipoInteresse tipoInteresse, Instant momento) {
 		super();
 		setTipoInteresse(tipoInteresse);
 		this.momento = momento;
 		this.id.setParticipantes(participantes);
-		this.id.setVentos(ventos);
+		this.id.setEventos(eventos);
 	}
 
 	public TipoInteresse getTipoInteresse() {
@@ -61,12 +61,12 @@ public class Interesse implements Serializable {
 		this.id = id;
 	}
 	
-	public Evento getVentos() {
-		return id.getVentos();
+	public Evento getEventos() {
+		return id.getEventos();
 	}
 
-	public void setVentos(Evento ventos) {
-		this.id.setVentos(ventos);
+	public void setEventos(Evento eventos) {
+		this.id.setEventos(eventos);
 	}
 
 	public Usuario getParticipantes() {

@@ -1,6 +1,7 @@
 package com.integrador.entities;
 
 import java.io.Serializable;
+import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -33,19 +34,13 @@ public class Evento implements Serializable {
 	@Column(name = "LOCAL_NOME")
 	private String localNome;
 
-	// @Column(name = "ENDERECO")
-	// private String endereco;
-
 	@Column(name = "DATA")
-	private String data;
-
-	// event type
+	private Instant data;
 
 	@Column(name = "DESCRICAO")
 	private String descricao;
 
-	// Categoria
-
+	// CATEGORIA
 	@ManyToMany
 	@JoinTable(name = "EVENTO_CATEGORIA", joinColumns = @JoinColumn(name = "EVENTO_ID"), inverseJoinColumns = @JoinColumn(name = "CATEGORIA_ID"))
 	private Set<Categoria> tipos = new HashSet<>();
@@ -54,15 +49,14 @@ public class Evento implements Serializable {
 	@JoinColumn(name = "ENDERECO_ID")
 	private Endereco endereco;
 	
-	// INTERESSE
-	
-	@OneToMany(mappedBy = "id.ventos")
+	// INTERESSE	
+	@OneToMany(mappedBy = "id.eventos")
 	private Set<Interesse> interesses = new HashSet<>();
 
 	public Evento() {
 	}
 
-	public Evento(Integer id, String titulo, String localNome, String data, String descricao) {
+	public Evento(Integer id, String titulo, String localNome, Instant data, String descricao) {
 		super();
 		this.id = id;
 		this.titulo = titulo;
@@ -95,11 +89,11 @@ public class Evento implements Serializable {
 		this.localNome = localNome;
 	}
 
-	public String getData() {
+	public Instant getData() {
 		return data;
 	}
 
-	public void setData(String data) {
+	public void setData(Instant data) {
 		this.data = data;
 	}
 

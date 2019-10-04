@@ -4,11 +4,14 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -25,8 +28,12 @@ public class Estado implements Serializable {
 
 	@Column(name = "NOME")
 	private String nome;
-	
-	@OneToMany
+
+    @ManyToOne
+    @JoinColumn(name = "PAIS_ID", nullable = false)
+	private Pais pais;
+    
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "estado")
 	private Set<Cidade> cidades = new HashSet<>();
 
 	public Estado() {

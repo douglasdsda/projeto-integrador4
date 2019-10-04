@@ -9,29 +9,17 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
-import com.integrador.entities.PersonTest;
 import com.integrador.entities.Usuario;
-import com.integrador.repository.PersonTestRepository;
 import com.integrador.repository.UsuarioRepository;
 
 @Configuration
 @Profile("test")
 public class TestConfig implements CommandLineRunner {
-
-	@Autowired
-	private PersonTestRepository repoPersonTest;
-	
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
-
-		PersonTest p1 = new PersonTest(null, "test1", 1);
-		PersonTest p2 = new PersonTest(null, "test2", 10);
-		PersonTest p3 = new PersonTest(null, "test3", 5);
-
-		repoPersonTest.saveAll(Arrays.asList(p1, p2, p3));
 		
 		Usuario u1 = new Usuario(
 						null, 
