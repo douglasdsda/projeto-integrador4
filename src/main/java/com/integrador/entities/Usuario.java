@@ -1,8 +1,8 @@
 package com.integrador.entities;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -19,12 +19,15 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="USUARIO")
-public class Usuario implements Serializable {
+public class Usuario implements UserDetails {
 
 	private static final long serialVersionUID = 1L;
 
@@ -41,19 +44,18 @@ public class Usuario implements Serializable {
 	@Column(name="DATA_NASCIMENTO")
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dataNascimento;
+	
+	private String password;
 
 	@ManyToMany(cascade={CascadeType.ALL}, fetch=FetchType.EAGER)
 	@JoinTable(name="usuario_seguidor",
 		joinColumns={@JoinColumn(name="USUARIO_ID")},
 		inverseJoinColumns={@JoinColumn(name="SEGUIDOR_ID")})
 	private Set<Usuario> seguidores = new HashSet<Usuario>();
-	
 
 	@JsonIgnore
 	@ManyToMany(mappedBy="seguidores", fetch=FetchType.EAGER)
 	private Set<Usuario> influenciadores = new HashSet<Usuario>();
-	
-	//Categoria
 	
 	@ManyToMany
 	@JoinTable(name = "USUARIO_CATEGORIA",
@@ -62,21 +64,24 @@ public class Usuario implements Serializable {
 			)
 	private Set<Categoria> categorias = new HashSet<>();
 	
-	
-	// INTERESSE
 	@OneToMany(mappedBy = "id.participantes")
 	private Set<Interesse> interesses = new HashSet<>();
 
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "USUARIO_PERMISSAO", joinColumns = @JoinColumn(name = "USUARIO_ID"), inverseJoinColumns = @JoinColumn(name = "PERMISSAO_ID"))
+	private Set<Permissao> permissoes = new HashSet<Permissao>();
+	
 	public Usuario() {
 	}
 
-	public Usuario(Long id, String nome, String email, String fotoPerfil, LocalDate dataNascimento) {
+	public Usuario(Long id, String nome, String email, String fotoPerfil, LocalDate dataNascimento, String password) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.email = email;
 		this.fotoPerfil = fotoPerfil;
 		this.dataNascimento = dataNascimento;
+		this.password = password;
 	}
 
 	public Long getId() {
@@ -160,6 +165,13 @@ public class Usuario implements Serializable {
 		return interesses;
 	}
 
+	public void addPermissao(Permissao permissao) {
+		permissoes.add(permissao);
+	}
+	
+	public Set<Permissao> getPermissoes() {
+		return permissoes;
+	}
 
 	@Override
 	public int hashCode() {
@@ -185,4 +197,52 @@ public class Usuario implements Serializable {
 			return false;
 		return true;
 	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return permissoes;
+	}
+
+	@Override
+	public String getUsername() {
+		return email;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return true;
+	}
+	
+	public boolean hasPermissao(String permissaoName) {
+		for(Permissao permissao : permissoes) {
+			if(permissao.getAuthority().equals(permissaoName)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 }
