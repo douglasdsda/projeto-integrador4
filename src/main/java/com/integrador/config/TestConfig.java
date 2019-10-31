@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.integrador.entities.Permissao;
 import com.integrador.entities.Usuario;
@@ -24,6 +25,9 @@ public class TestConfig implements CommandLineRunner {
 	@Autowired
 	private PermissaoRepository permissaoRepository;	
 
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
+	
 	@Override
 	public void run(String... args) throws Exception {
 		
@@ -33,7 +37,7 @@ public class TestConfig implements CommandLineRunner {
 						"patrickfreitas@gmail.com", 
 						"path/path/",
 						LocalDate.of(1998, Month.AUGUST, 10),
-						null);
+						passwordEncoder.encode("123456"));
 
 		Usuario u2 = new Usuario(
 						null, 
@@ -41,7 +45,7 @@ public class TestConfig implements CommandLineRunner {
 						"sabrina@gmail.com", 
 						"path/path/2",
 						LocalDate.of(1996, Month.JANUARY, 1),
-						null);
+						passwordEncoder.encode("123456"));
 
 		Usuario u3 = new Usuario(
 						null, 
@@ -60,25 +64,24 @@ public class TestConfig implements CommandLineRunner {
 						null);
 		
 		usuarioRepository.saveAll(Arrays.asList(u1, u2, u3, u4));
+
+		Permissao p1 = new Permissao(null, "ROLE_CLIENT");
+		Permissao p2 = new Permissao(null, "ROLE_ADMIN");
+		
+		permissaoRepository.saveAll(Arrays.asList(p1, p2));
 		
 		u1.getSeguidores().add(u2);
 		u1.getSeguidores().add(u3);
 		u2.getSeguidores().add(u3);
-		usuarioRepository.saveAll(Arrays.asList(u1, u2));
+		
+		u1.getPermissoes().add(p1);
+		u2.getPermissoes().add(p1);
+		u3.getPermissoes().add(p1);
+		u4.getPermissoes().add(p1);
 
-//		Permissao p1 = new Permissao(null, "ROLE_CLIENT");
-//		Permissao p2 = new Permissao(null, "ROLE_ADMIN");
-//		
-//		permissaoRepository.saveAll(Arrays.asList(p1, p2));
-//		
-//		u1.getPermissoes().add(p1);
-//		u2.getPermissoes().add(p1);
-//		u3.getPermissoes().add(p1);
-//		u4.getPermissoes().add(p1);
-//
-//		u1.getPermissoes().add(p2);
-//
-//		usuarioRepository.saveAll(Arrays.asList(u1, u2, u3, u4));
+		u1.getPermissoes().add(p2);
+
+		usuarioRepository.saveAll(Arrays.asList(u1, u2, u3, u4));
 	}
 
 }
