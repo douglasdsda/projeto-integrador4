@@ -10,8 +10,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import com.integrador.entities.Categoria;
 import com.integrador.entities.Permissao;
 import com.integrador.entities.Usuario;
+import com.integrador.repository.CategoriaRepository;
 import com.integrador.repository.PermissaoRepository;
 import com.integrador.repository.UsuarioRepository;
 
@@ -27,6 +29,9 @@ public class TestConfig implements CommandLineRunner {
 
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
+	
+	@Autowired
+	private CategoriaRepository categoriaRepository;
 	
 	@Override
 	public void run(String... args) throws Exception {
@@ -69,6 +74,14 @@ public class TestConfig implements CommandLineRunner {
 		Permissao p2 = new Permissao(null, "ROLE_ADMIN");
 		
 		permissaoRepository.saveAll(Arrays.asList(p1, p2));
+
+		
+		Categoria c1 = new Categoria(null, "Balada");
+		Categoria c2 = new Categoria(null, "Culto");
+		Categoria c3 = new Categoria(null, "Show");
+		Categoria c4 = new Categoria(null, "Teatro");
+		
+		categoriaRepository.saveAll(Arrays.asList(c1, c2, c3, c4));
 		
 		u1.getSeguidores().add(u2);
 		u1.getSeguidores().add(u3);
@@ -80,7 +93,9 @@ public class TestConfig implements CommandLineRunner {
 		u4.getPermissoes().add(p1);
 
 		u1.getPermissoes().add(p2);
-
+		
+		u1.getCategorias().add(c1);
+		
 		usuarioRepository.saveAll(Arrays.asList(u1, u2, u3, u4));
 	}
 

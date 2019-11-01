@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.integrador.dto.CategoriaDTO;
 import com.integrador.dto.UsuarioDTO;
 import com.integrador.dto.UsuarioInsertDTO;
 import com.integrador.services.UsuarioService;
@@ -48,6 +49,24 @@ public class UsuarioResource {
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(newDTO.getId()).toUri();
 		return ResponseEntity.created(uri).body(newDTO);
+	}
+
+	@PutMapping(value = "/{id}/addcategory")
+	public ResponseEntity<Void> addCategory(@PathVariable Long id, @RequestBody CategoriaDTO categoryDto) {
+		service.addCategory(id, categoryDto);
+		return ResponseEntity.noContent().build();
+	}
+
+	@PutMapping(value = "/{id}/removecategory")
+	public ResponseEntity<Void> removeCategory(@PathVariable Long id, @RequestBody CategoriaDTO categoryDto) {
+		service.removeCategory(id, categoryDto);
+		return ResponseEntity.noContent().build();
+	}
+
+	@PutMapping(value = "/{id}/setcategories")
+	public ResponseEntity<Void> setCategories(@PathVariable Long id, @RequestBody List<CategoriaDTO> listCategoryDto) {
+		service.setCategories(id, listCategoryDto);
+		return ResponseEntity.noContent().build();
 	}
 	
 	@DeleteMapping(value = "/{id}")

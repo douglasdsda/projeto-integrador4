@@ -15,9 +15,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.integrador.dto.CategoriaDTO;
 import com.integrador.dto.UsuarioDTO;
 import com.integrador.dto.UsuarioInsertDTO;
+import com.integrador.entities.Categoria;
 import com.integrador.entities.Usuario;
+import com.integrador.repository.CategoriaRepository;
 import com.integrador.repository.UsuarioRepository;
 import com.integrador.services.exceptions.DatabaseException;
 import com.integrador.services.exceptions.ResourceNotFoundException;
@@ -27,9 +30,12 @@ public class UsuarioService implements UserDetailsService {
 	
 	@Autowired
 	private UsuarioRepository repository;
+	
+	@Autowired
+	private CategoriaRepository categoryRepository;
 
 	@Autowired
-	private BCryptPasswordEncoder passwordEncoder;
+	private BCryptPasswordEncoder passwordEncoder;	
 
 	@Autowired
 	private AuthService authService;
@@ -90,5 +96,39 @@ public class UsuarioService implements UserDetailsService {
 			throw new UsernameNotFoundException(username);
 		}
 		return user;		
+	}
+	
+	@Transactional
+	public void addCategory(Long id, CategoriaDTO dto) {
+		authService.validateSelfOrAdmin(id);
+		Usuario usuario = repository.getOne(id);
+		Categoria categoria = categoryRepository.getOne(dto.getId());
+		usuario.getCategorias().add(categoria);
+		repository.save(usuario);
+	}
+	
+	@Transactional
+	public void removeCategory(Long id, CategoriaDTO dto) {
+		authService.validateSelfOrAdmin(id);
+		Usuario usuario = repository.getOne(id);
+		Categoria categoria = categoryRepository.getOne(dto.getId());
+		usuario.getCategorias().remove(categoria);
+		repository.save(usuario);
+	}
+
+	@Transactional
+	public void setCategories(Long id, List<CategoriaDTO> categoriesDto) {
+		authService.validateSelfOrAdmin(id);
+		Usuario usuario = repository.getOne(id);
+		setUsuarioCategorias(usuario, categoriesDto);
+		repository.save(usuario);
+	}
+
+	private void setUsuarioCategorias(Usuario entity, List<CategoriaDTO> categories) {
+		entity.getCategorias().clear();
+		for(CategoriaDTO dto : categories) {
+			Categoria category = categoryRepository.getOne(dto.getId());
+			entity.getCategorias().add(category);
+		}
 	}
 }
