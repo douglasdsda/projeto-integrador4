@@ -9,6 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -28,7 +30,14 @@ public class Endereco implements Serializable {
 
 	@Column(name = "COMPLEMENTO")
 	private String complemento;
+
+	@Column(name = "LOGRADOURO")
+	private String logradouro;
 	
+	@ManyToOne
+	@JoinColumn(name = "BAIRRO_ID")
+	private Bairro bairro;
+
 	@OneToMany(mappedBy = "endereco")
 	private Set<Evento> eventos = new HashSet<>();
 
@@ -68,6 +77,22 @@ public class Endereco implements Serializable {
 
 	public Set<Evento> getEventos() {
 		return eventos;
+	}
+
+	public String getLogradouro() {
+		return logradouro;
+	}
+
+	public void setLogradouro(String logradouro) {
+		this.logradouro = logradouro;
+	}
+
+	public Bairro getBairro() {
+		return bairro;
+	}
+
+	public void setBairro(Bairro bairro) {
+		this.bairro = bairro;
 	}
 
 }
