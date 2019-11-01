@@ -3,6 +3,11 @@ package com.integrador.dto;
 import java.io.Serializable;
 import java.time.Instant;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Length;
+
 import com.integrador.entities.Endereco;
 import com.integrador.entities.Evento;
 
@@ -12,19 +17,28 @@ public class EventoDTO implements Serializable {
 
 	private Integer id;
 
+	@NotEmpty(message = "can't be empty")
+	@Length(min = 3, max = 80, message = "string length must be between 3 and 80")
 	private String titulo;
 
+	@NotEmpty(message = "can't be empty")
+	@Length(min = 3, max = 80, message = "string length must be between 3 and 80")
 	private String localNome;
 
+	@NotNull(message = "ca't be null")
 	private Instant data;
 
+	@NotEmpty(message = "can't be empty")
+	@Length(min = 3, max = 80, message = "string length must be between 3 and 80")
 	private String descricao;
-	
+
 	private Integer EnderecoId;
-	
+
 	private Integer EnderecoNumero;
-	
- 
+
+	private String EnderecoComplemento;
+
+	private String EnderecoLogradouro;
 
 	public EventoDTO() {
 	}
@@ -45,6 +59,8 @@ public class EventoDTO implements Serializable {
 		this.descricao = entity.getDescricao();
 		this.EnderecoId = entity.getEndereco().getId();
 		this.EnderecoNumero = entity.getEndereco().getNumero();
+		this.EnderecoComplemento = entity.getEndereco().getComplemento();
+		this.EnderecoLogradouro = entity.getEndereco().getLogradouro();
 	}
 
 	public Integer getId() {
@@ -88,7 +104,7 @@ public class EventoDTO implements Serializable {
 	}
 
 	public Evento toEntity() {
-		Endereco endereco = new Endereco(EnderecoId, EnderecoNumero, null);
+		Endereco endereco = new Endereco(EnderecoId, EnderecoNumero, EnderecoComplemento, EnderecoLogradouro);
 		return new Evento(id, titulo, localNome, data, descricao, endereco);
 	}
 
