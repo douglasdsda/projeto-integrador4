@@ -1,6 +1,8 @@
 package com.integrador.entities;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -28,6 +31,9 @@ public class Bairro implements Serializable {
     @ManyToOne
     @JoinColumn(name = "CIDADE_ID", nullable = false)
 	private Cidade cidade;
+    
+    @OneToMany(mappedBy = "bairro")
+	private Set<Endereco> Enderecos = new HashSet<>();
 	
 	public Bairro() {
 	}
@@ -46,11 +52,28 @@ public class Bairro implements Serializable {
 		this.id = id;
 	}
 
-	public String nome() {
-		return nome;
-	}
-
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+	
+	public String getNome() {
+		return nome;
+	}
+
+	public Cidade getCidade() {
+		return cidade;
+	}
+
+	public void setCidade(Cidade cidade) {
+		this.cidade = cidade;
+	}
+
+	public Set<Endereco> getEnderecos() {
+		return Enderecos;
+	}
+
+
+	
+	
+	
 }

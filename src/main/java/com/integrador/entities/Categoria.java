@@ -20,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Categoria implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@Column(name = "CATEGORIA_ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
