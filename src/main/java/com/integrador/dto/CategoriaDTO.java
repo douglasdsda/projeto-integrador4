@@ -3,10 +3,6 @@ package com.integrador.dto;
 import java.io.Serializable;
 
 import javax.validation.constraints.NotEmpty;
-<<<<<<< HEAD
-=======
-import javax.validation.constraints.Size;
->>>>>>> e57d5eb6df4210f914c2faf0d21540015a601e38
 
 import org.hibernate.validator.constraints.Length;
 
