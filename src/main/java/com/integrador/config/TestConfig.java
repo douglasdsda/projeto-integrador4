@@ -10,8 +10,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import com.integrador.entities.Endereco;
 import com.integrador.entities.Permissao;
 import com.integrador.entities.Usuario;
+import com.integrador.repository.EnderecoRepository;
 import com.integrador.repository.PermissaoRepository;
 import com.integrador.repository.UsuarioRepository;
 
@@ -24,7 +26,10 @@ public class TestConfig implements CommandLineRunner {
 	
 	@Autowired
 	private PermissaoRepository permissaoRepository;	
-
+	
+	@Autowired
+	private EnderecoRepository enderecoRepository;
+	
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 	
@@ -82,6 +87,12 @@ public class TestConfig implements CommandLineRunner {
 		u1.getPermissoes().add(p2);
 
 		usuarioRepository.saveAll(Arrays.asList(u1, u2, u3, u4));
+		
+		Endereco e1 = new Endereco(null, "Rua Afonso Pena", 7,"Apartamento");
+		Endereco e2 = new Endereco(null, "Rua Joaquim Sabino", 5,"Casa");
+		
+		enderecoRepository.saveAll(Arrays.asList(e1, e2));
+		
 	}
 
 }
