@@ -44,13 +44,13 @@ public class Endereco implements Serializable {
 	public Endereco() {
 	}
 
+
 	public Endereco(Integer id, String logradouro, Integer numero, String complemento) {
 		super();
 		this.id = id;
 		this.logradouro = logradouro;
 		this.numero = numero;
 		this.complemento = complemento;
-		
 	}
 	
 	public Integer getId() {
@@ -96,5 +96,6 @@ public class Endereco implements Serializable {
 	public void setBairro(Bairro bairro) {
 		this.bairro = bairro;
 	}
+
 
 }
