@@ -104,7 +104,7 @@ public class EventoDTO implements Serializable {
 	}
 
 	public Evento toEntity() {
-		Endereco endereco = new Endereco(EnderecoId, EnderecoNumero, EnderecoComplemento, EnderecoLogradouro);
+		Endereco endereco = new Endereco(EnderecoId, EnderecoLogradouro, EnderecoNumero, EnderecoComplemento);
 		return new Evento(id, titulo, localNome, data, descricao, endereco);
 	}
 

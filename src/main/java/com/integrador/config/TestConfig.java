@@ -1,5 +1,6 @@
 package com.integrador.config;
 
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.Arrays;
@@ -12,10 +13,15 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.integrador.entities.Categoria;
 import com.integrador.entities.Endereco;
+import com.integrador.entities.Evento;
+import com.integrador.entities.Interesse;
 import com.integrador.entities.Permissao;
 import com.integrador.entities.Usuario;
+import com.integrador.enums.TipoInteresse;
 import com.integrador.repository.CategoriaRepository;
 import com.integrador.repository.EnderecoRepository;
+import com.integrador.repository.EventoRepository;
+import com.integrador.repository.InteresseRepository;
 import com.integrador.repository.PermissaoRepository;
 import com.integrador.repository.UsuarioRepository;
 
@@ -37,6 +43,12 @@ public class TestConfig implements CommandLineRunner {
 	
 	@Autowired
 	private CategoriaRepository categoriaRepository;
+	
+	@Autowired
+	private EventoRepository eventoRepository;
+	
+	@Autowired
+	private InteresseRepository interesseRepository;
 	
 	@Override
 	public void run(String... args) throws Exception {
@@ -107,6 +119,21 @@ public class TestConfig implements CommandLineRunner {
 		Endereco e2 = new Endereco(null, "Rua Joaquim Sabino", 5,"Casa");
 		
 		enderecoRepository.saveAll(Arrays.asList(e1, e2));
+	  // String x = Instant.parse(LocalDate.of(2019, Month.NOVEMBER, 15).toString();
+		
+		Evento ev1 = new Evento(null, "Gustavo Lima", "Shopping",   Instant.now() , "Sertenejo", e1);
+		Evento ev2 = new Evento(null, "Cinema Free", "Centro",   Instant.now()  , "Cinema", e2);
+		Evento ev3 = new Evento(null, "Palestra do Google", "Shopping",   Instant.now() , "Google", e1);
+		
+		eventoRepository.saveAll(Arrays.asList(ev1,ev2,ev3 ));
+		
+		Interesse it1 = new Interesse(u1, ev1, TipoInteresse.MARCA_PRESENCA, Instant.now());
+		Interesse it2 = new Interesse(u2, ev1, TipoInteresse.NÃO_COMPARECEREI, Instant.now());
+		Interesse it3 = new Interesse(u3, ev1, TipoInteresse.TENHO_INTERESSE, Instant.now());
+		Interesse it4 = new Interesse(u1, ev1, TipoInteresse.INDIFERENTE, Instant.now());
+		Interesse it5 = new Interesse(u3, ev1, TipoInteresse.TENHO_INTERESSE, Instant.now());
+		
+		interesseRepository.saveAll(Arrays.asList(it1,it2,it3,it4,it5 ));
 		
 	}
 
