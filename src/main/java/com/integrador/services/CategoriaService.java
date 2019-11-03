@@ -11,29 +11,29 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
-import com.integrador.dto.EventoDTO;
-import com.integrador.entities.Evento;
-import com.integrador.repository.EventoRepository;
+import com.integrador.dto.CategoriaDTO;
+import com.integrador.entities.Categoria;
+import com.integrador.repository.CategoriaRepository;
 import com.integrador.services.exceptions.DatabaseException;
 import com.integrador.services.exceptions.ResourceNotFoundException;
 
 @Service
-public class EventoService {
+public class CategoriaService {
 
 	@Autowired
-	private EventoRepository repository;
+	private CategoriaRepository repository;
 
-	public List<EventoDTO> findAll() {
-		List<Evento> list = repository.findAll();
-		return list.stream().map(e -> new EventoDTO(e)).collect(Collectors.toList());
+	public List<CategoriaDTO> findAll() {
+		List<Categoria> list = repository.findAll();
+		return list.stream().map(e -> new CategoriaDTO(e)).collect(Collectors.toList());
 	}
 
-	public EventoDTO findById(Integer id) {
-		Evento entity = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
-		return new EventoDTO(entity);
+	public CategoriaDTO findById(Long id) {
+		Categoria entity = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
+		return new CategoriaDTO(entity);
 	}
 
-	public void delete(Integer id) {
+	public void delete(Long id) {
 		try {
 			repository.deleteById(id);
 		} catch (EmptyResultDataAccessException e) {
@@ -44,28 +44,25 @@ public class EventoService {
 	}
 
 	@Transactional
-	public EventoDTO update(Integer id, EventoDTO obj) {
+	public CategoriaDTO update(Long id, CategoriaDTO obj) {
 		try {
-			Evento entity = repository.getOne(id);
+			Categoria entity = repository.getOne(id);
 			updateData(entity, obj);
 			entity = repository.save(entity);
-			return new EventoDTO(entity);
+			return new CategoriaDTO(entity);
 		} catch (EntityNotFoundException e) {
 			throw new ResourceNotFoundException(id);
 		}
 	}
 
-	private void updateData(Evento entity, EventoDTO obj) {
-		entity.setData(obj.getData());
-		entity.setDescricao(obj.getDescricao());
-		entity.setLocalNome(obj.getLocalNome());
+	private void updateData(Categoria entity, CategoriaDTO obj) {
 		entity.setTitulo(obj.getTitulo());
 	}
 
-	public EventoDTO insert(EventoDTO obj) {
-		Evento entity = obj.toEntity();
+	public CategoriaDTO insert(CategoriaDTO obj) {
+		Categoria entity = obj.toEntity();
 		entity = repository.save(entity);
-		return new EventoDTO(entity);
+		return new CategoriaDTO(entity);
 	}
 
 }

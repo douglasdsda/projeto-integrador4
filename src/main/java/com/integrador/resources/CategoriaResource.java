@@ -18,45 +18,45 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.integrador.dto.EventoDTO;
-import com.integrador.services.EventoService;
+import com.integrador.dto.CategoriaDTO;
+import com.integrador.services.CategoriaService;
 
 @RestController
-@RequestMapping(value = "/eventos")
-public class EventoResource {
+@RequestMapping(value = "/categorias")
+public class CategoriaResource {
 
 	@Autowired
-	private EventoService service;
+	private CategoriaService service;
 
 	@GetMapping
-	public ResponseEntity<List<EventoDTO>> findAll() {
-		List<EventoDTO> list = service.findAll();
+	public ResponseEntity<List<CategoriaDTO>> findAll() {
+		List<CategoriaDTO> list = service.findAll();
 		return ResponseEntity.ok().body(list);
 	}
 
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<EventoDTO> findById(@PathVariable Integer id) {
-		EventoDTO obj = service.findById(id);
+	public ResponseEntity<CategoriaDTO> findById(@PathVariable Long id) {
+		CategoriaDTO obj = service.findById(id);
 		return ResponseEntity.ok().body(obj);
 	}
 	
 	@DeleteMapping(value = "/{id}")
 	@PreAuthorize("hasAnyRole('ADMIN')")
-	public ResponseEntity<Void> delete(@PathVariable Integer id) {
+	public ResponseEntity<Void> delete(@PathVariable Long id) {
 		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}
 	
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<EventoDTO> update(@PathVariable Integer id, @Valid @RequestBody EventoDTO obj) {
+	public ResponseEntity<CategoriaDTO> update(@PathVariable Long id, @Valid @RequestBody CategoriaDTO obj) {
 		service.update(id, obj);
 		return ResponseEntity.ok().body(obj);
 	}
 	
 	@PostMapping
 	@PreAuthorize("hasAnyRole('ADMIN')")
-	public ResponseEntity<EventoDTO> insert(@Valid @RequestBody EventoDTO obj) {
-		EventoDTO newDTO = service.insert(obj);
+	public ResponseEntity<CategoriaDTO> insert(@Valid @RequestBody CategoriaDTO obj) {
+		CategoriaDTO newDTO = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(newDTO.getId()).toUri();
 		return ResponseEntity.created(uri).body(newDTO);
