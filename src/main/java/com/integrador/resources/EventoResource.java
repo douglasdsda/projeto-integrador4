@@ -61,5 +61,4 @@ public class EventoResource {
 				.buildAndExpand(newDTO.getId()).toUri();
 		return ResponseEntity.created(uri).body(newDTO);
 	}
-
 }

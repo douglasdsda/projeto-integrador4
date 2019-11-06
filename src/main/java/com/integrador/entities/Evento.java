@@ -50,7 +50,7 @@ public class Evento implements Serializable {
 	private Endereco endereco;
 	
 	// INTERESSE	
-	@OneToMany(mappedBy = "id.eventos")
+	@OneToMany(mappedBy = "id.evento")
 	private Set<Interesse> interesses = new HashSet<>();
 
 	public Evento() {

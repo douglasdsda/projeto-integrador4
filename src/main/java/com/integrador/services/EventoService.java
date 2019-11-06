@@ -22,7 +22,7 @@ public class EventoService {
 
 	@Autowired
 	private EventoRepository repository;
-
+	
 	public List<EventoDTO> findAll() {
 		List<Evento> list = repository.findAll();
 		return list.stream().map(e -> new EventoDTO(e)).collect(Collectors.toList());
@@ -67,5 +67,4 @@ public class EventoService {
 		entity = repository.save(entity);
 		return new EventoDTO(entity);
 	}
-
 }

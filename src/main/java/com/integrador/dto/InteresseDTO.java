@@ -52,11 +52,8 @@ public class InteresseDTO implements Serializable {
 		IdEvento = idEvento;
 		this.tituloEvento = tituloEvento;
 	}
-	
-	
 
 	public InteresseDTO(Interesse entity) {
-		
 		this.tipoInteresse = entity.getTipoInteresse();
 		this.momento = entity.getMomento();
 		IdUsuario = entity.getId().getParticipantes().getId();

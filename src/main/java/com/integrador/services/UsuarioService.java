@@ -16,9 +16,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.integrador.dto.CategoriaDTO;
+import com.integrador.dto.InteresseDTO;
 import com.integrador.dto.UsuarioDTO;
 import com.integrador.dto.UsuarioInsertDTO;
 import com.integrador.entities.Categoria;
+import com.integrador.entities.Interesse;
 import com.integrador.entities.Usuario;
 import com.integrador.repository.CategoriaRepository;
 import com.integrador.repository.UsuarioRepository;
