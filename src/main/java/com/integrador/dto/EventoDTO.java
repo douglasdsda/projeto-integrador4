@@ -8,6 +8,7 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
+import com.integrador.entities.Bairro;
 import com.integrador.entities.Endereco;
 import com.integrador.entities.Evento;
 
@@ -32,13 +33,15 @@ public class EventoDTO implements Serializable {
 	@Length(min = 3, max = 80, message = "string length must be between 3 and 80")
 	private String descricao;
 
-	private Integer EnderecoId;
+	private Integer enderecoId;
 
-	private Integer EnderecoNumero;
+	private Integer enderecoNumero;
 
-	private String EnderecoComplemento;
+	private String enderecoComplemento;
 
-	private String EnderecoLogradouro;
+	private String enderecoLogradouro;
+	
+	private String enderecoBairro;
 
 	public EventoDTO() {
 	}
@@ -57,10 +60,11 @@ public class EventoDTO implements Serializable {
 		this.localNome = entity.getLocalNome();
 		this.data = entity.getData();
 		this.descricao = entity.getDescricao();
-		this.EnderecoId = entity.getEndereco().getId();
-		this.EnderecoNumero = entity.getEndereco().getNumero();
-		this.EnderecoComplemento = entity.getEndereco().getComplemento();
-		this.EnderecoLogradouro = entity.getEndereco().getLogradouro();
+		this.enderecoId = entity.getEndereco().getId();
+		this.enderecoNumero = entity.getEndereco().getNumero();
+		this.enderecoComplemento = entity.getEndereco().getComplemento();
+		this.enderecoLogradouro = entity.getEndereco().getLogradouro();
+		this.enderecoBairro = entity.getEndereco().getBairro().getNome();
 	}
 
 	public Integer getId() {
@@ -102,9 +106,10 @@ public class EventoDTO implements Serializable {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
+	
 
 	public Evento toEntity() {
-		Endereco endereco = new Endereco(EnderecoId, EnderecoLogradouro, EnderecoNumero, EnderecoComplemento);
+		Endereco endereco = new Endereco(enderecoId, enderecoLogradouro, enderecoNumero, enderecoComplemento, null);
 		return new Evento(id, titulo, localNome, data, descricao, endereco);
 	}
 

@@ -38,10 +38,11 @@ public class Bairro implements Serializable {
 	public Bairro() {
 	}
 
-	public Bairro(Integer id, String nome) {
+	public Bairro(Integer id, String nome, Cidade cidade) {
 		super();
 		this.id = id;
 		this.nome = nome;
+		this.cidade = cidade;
 	}
 
 	public Integer getId() {
@@ -71,9 +72,6 @@ public class Bairro implements Serializable {
 	public Set<Endereco> getEnderecos() {
 		return Enderecos;
 	}
-
-
-	
 	
 	
 }

@@ -33,16 +33,19 @@ public class Cidade implements Serializable {
     @JoinColumn(name = "ESTADO_ID", nullable = false)
 	private Estado estado;
 
+	
+
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "cidade")
 	private Set<Bairro> bairros = new HashSet<>();
 	
 	public Cidade() {
 	}
 
-	public Cidade(Integer id, String nome) {
+	public Cidade(Integer id, String nome, Estado estado) {
 		super();
 		this.id = id;
 		this.nome = nome;
+		this.estado = estado;
 	}
 
 	public Integer getId() {
@@ -52,12 +55,22 @@ public class Cidade implements Serializable {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
-	public String nome() {
+	
+	public String getNome() {
 		return nome;
 	}
 
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+
+	public Estado getEstado() {
+		return estado;
+	}
+
+	public void setEstado(Estado estado) {
+		this.estado = estado;
+	}
+	
+	
 }

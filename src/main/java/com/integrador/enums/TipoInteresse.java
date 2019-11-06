@@ -4,7 +4,7 @@ package com.integrador.enums;
 public enum TipoInteresse {
 	MARCA_PRESENCA(1),
 	TENHO_INTERESSE(2),
-	NÃO_COMPARECEREI(3),
+	NAO_COMPARECEREI(3),
 	INDIFERENTE(4);
 
 	private int codigo;
