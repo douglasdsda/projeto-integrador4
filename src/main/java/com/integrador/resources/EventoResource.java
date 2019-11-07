@@ -48,6 +48,7 @@ public class EventoResource {
 	}
 	
 	@PutMapping(value = "/{id}")
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	public ResponseEntity<EventoDTO> update(@PathVariable Integer id, @Valid @RequestBody EventoDTO obj) {
 		service.update(id, obj);
 		return ResponseEntity.ok().body(obj);
@@ -60,6 +61,12 @@ public class EventoResource {
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(newDTO.getId()).toUri();
 		return ResponseEntity.created(uri).body(newDTO);
+	}
+	
+	@GetMapping(value = "/categoria/{categoriaId}")
+	public ResponseEntity<List<EventoDTO>> findByCategoria(@PathVariable Long categoriaId){
+		List<EventoDTO> dtos = service.findByCategoria(categoriaId);
+		return ResponseEntity.ok().body(dtos);
 	}
 
 }

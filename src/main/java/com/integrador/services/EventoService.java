@@ -1,6 +1,7 @@
 package com.integrador.services;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityNotFoundException;
@@ -12,7 +13,9 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.integrador.dto.EventoDTO;
+import com.integrador.entities.Categoria;
 import com.integrador.entities.Evento;
+import com.integrador.repository.CategoriaRepository;
 import com.integrador.repository.EventoRepository;
 import com.integrador.services.exceptions.DatabaseException;
 import com.integrador.services.exceptions.ResourceNotFoundException;
@@ -23,6 +26,9 @@ public class EventoService {
 	@Autowired
 	private EventoRepository repository;
 
+	@Autowired
+	private CategoriaRepository categoriaRepository;
+	
 	public List<EventoDTO> findAll() {
 		List<Evento> list = repository.findAll();
 		return list.stream().map(e -> new EventoDTO(e)).collect(Collectors.toList());
@@ -66,6 +72,12 @@ public class EventoService {
 		Evento entity = obj.toEntity();
 		entity = repository.save(entity);
 		return new EventoDTO(entity);
+	}
+
+	public List<EventoDTO> findByCategoria(Long categoriaId) {
+		Categoria obj = categoriaRepository.getOne(categoriaId); 
+		Set<Evento> set = obj.getEventos();
+		return set.stream().map(e -> new EventoDTO(e)).collect(Collectors.toList());
 	}
 
 }

@@ -1,6 +1,7 @@
 package com.integrador.services;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityNotFoundException;
@@ -13,7 +14,9 @@ import org.springframework.stereotype.Service;
 
 import com.integrador.dto.CategoriaDTO;
 import com.integrador.entities.Categoria;
+import com.integrador.entities.Usuario;
 import com.integrador.repository.CategoriaRepository;
+import com.integrador.repository.UsuarioRepository;
 import com.integrador.services.exceptions.DatabaseException;
 import com.integrador.services.exceptions.ResourceNotFoundException;
 
@@ -22,6 +25,9 @@ public class CategoriaService {
 
 	@Autowired
 	private CategoriaRepository repository;
+	
+	@Autowired
+	private UsuarioRepository Usuariorepository;
 
 	public List<CategoriaDTO> findAll() {
 		List<Categoria> list = repository.findAll();
@@ -63,6 +69,12 @@ public class CategoriaService {
 		Categoria entity = obj.toEntity();
 		entity = repository.save(entity);
 		return new CategoriaDTO(entity);
+	}
+
+	public List<CategoriaDTO> findByUsuario(Long usuarioId) {
+		Usuario obj = Usuariorepository.getOne(usuarioId); 
+		Set<Categoria> set = obj.getCategorias();
+		return set.stream().map(e -> new CategoriaDTO(e)).collect(Collectors.toList());
 	}
 
 }

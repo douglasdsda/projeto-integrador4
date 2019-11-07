@@ -48,6 +48,7 @@ public class CategoriaResource {
 	}
 	
 	@PutMapping(value = "/{id}")
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	public ResponseEntity<CategoriaDTO> update(@PathVariable Long id, @Valid @RequestBody CategoriaDTO obj) {
 		service.update(id, obj);
 		return ResponseEntity.ok().body(obj);
@@ -60,6 +61,12 @@ public class CategoriaResource {
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(newDTO.getId()).toUri();
 		return ResponseEntity.created(uri).body(newDTO);
+	}
+	
+	@GetMapping(value = "/usuario/{usuarioId}")
+	public ResponseEntity<List<CategoriaDTO>> findByUsuario(@PathVariable Long usuarioId){
+		List<CategoriaDTO> dtos = service.findByUsuario(usuarioId);
+		return ResponseEntity.ok().body(dtos);
 	}
 
 }
