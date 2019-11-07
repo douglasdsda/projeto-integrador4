@@ -35,14 +35,15 @@ public class Estado implements Serializable {
     
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "estado")
 	private Set<Cidade> cidades = new HashSet<>();
-
+	
 	public Estado() {
 	}
 
-	public Estado(Integer id, String nome) {
+	public Estado(Integer id, String nome, Pais pais) {
 		super();
 		this.id = id;
 		this.nome = nome;
+		this.pais = pais;
 	}
 
 	public Integer getId() {
@@ -53,11 +54,21 @@ public class Estado implements Serializable {
 		this.id = id;
 	}
 
-	public String nome() {
+	
+	public String getNome() {
 		return nome;
 	}
 
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+
+	public Pais getPais() {
+		return pais;
+	}
+
+	public void setPais(Pais pais) {
+		this.pais = pais;
+	}	
+	
 }

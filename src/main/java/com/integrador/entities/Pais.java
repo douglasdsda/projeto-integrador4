@@ -47,7 +47,7 @@ public class Pais implements Serializable {
 		this.id = id;
 	}
 
-	public String nome() {
+	public String getNome() {
 		return nome;
 	}
 

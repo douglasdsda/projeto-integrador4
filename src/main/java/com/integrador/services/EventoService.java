@@ -25,9 +25,11 @@ public class EventoService {
 
 	@Autowired
 	private EventoRepository repository;
+ 
 
 	@Autowired
 	private CategoriaRepository categoriaRepository;
+ 
 	
 	public List<EventoDTO> findAll() {
 		List<Evento> list = repository.findAll();
@@ -73,11 +75,12 @@ public class EventoService {
 		entity = repository.save(entity);
 		return new EventoDTO(entity);
 	}
+ 
 
 	public List<EventoDTO> findByCategoria(Long categoriaId) {
 		Categoria obj = categoriaRepository.getOne(categoriaId); 
 		Set<Evento> set = obj.getEventos();
 		return set.stream().map(e -> new EventoDTO(e)).collect(Collectors.toList());
 	}
-
+ 
 }

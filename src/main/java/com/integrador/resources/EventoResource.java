@@ -62,6 +62,7 @@ public class EventoResource {
 				.buildAndExpand(newDTO.getId()).toUri();
 		return ResponseEntity.created(uri).body(newDTO);
 	}
+ 
 	
 	@GetMapping(value = "/categoria/{categoriaId}")
 	public ResponseEntity<List<EventoDTO>> findByCategoria(@PathVariable Long categoriaId){
@@ -69,4 +70,5 @@ public class EventoResource {
 		return ResponseEntity.ok().body(dtos);
 	}
 
+ 
 }

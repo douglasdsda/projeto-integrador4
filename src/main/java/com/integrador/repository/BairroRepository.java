@@ -1,0 +1,14 @@
+package com.integrador.repository;
+
+import java.util.Optional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.integrador.entities.Bairro;
+
+public interface BairroRepository extends JpaRepository<Bairro, Integer>{
+	
+	Optional<Bairro> findById(Integer id);
+
+	void deleteById(Long id);
+}
