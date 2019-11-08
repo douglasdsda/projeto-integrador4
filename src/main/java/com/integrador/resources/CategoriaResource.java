@@ -68,5 +68,11 @@ public class CategoriaResource {
 		List<CategoriaDTO> dtos = service.findByUsuario(usuarioId);
 		return ResponseEntity.ok().body(dtos);
 	}
+	
+	@GetMapping(value = "/evento/{eventoId}")
+	public ResponseEntity<List<CategoriaDTO>> findByCategoria(@PathVariable Long eventoId){
+		List<CategoriaDTO> dtos = service.findByCategoria(eventoId);
+		return ResponseEntity.ok().body(dtos);
+	}
 
 }

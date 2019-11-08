@@ -35,21 +35,21 @@ public class EventoResource {
 	}
 
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<EventoDTO> findById(@PathVariable Integer id) {
+	public ResponseEntity<EventoDTO> findById(@PathVariable Long id) {
 		EventoDTO obj = service.findById(id);
 		return ResponseEntity.ok().body(obj);
 	}
 	
 	@DeleteMapping(value = "/{id}")
 	@PreAuthorize("hasAnyRole('ADMIN')")
-	public ResponseEntity<Void> delete(@PathVariable Integer id) {
+	public ResponseEntity<Void> delete(@PathVariable Long id) {
 		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}
 	
 	@PutMapping(value = "/{id}")
 	@PreAuthorize("hasAnyRole('ADMIN')")
-	public ResponseEntity<EventoDTO> update(@PathVariable Integer id, @Valid @RequestBody EventoDTO obj) {
+	public ResponseEntity<EventoDTO> update(@PathVariable Long id, @Valid @RequestBody EventoDTO obj) {
 		service.update(id, obj);
 		return ResponseEntity.ok().body(obj);
 	}

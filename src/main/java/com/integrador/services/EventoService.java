@@ -36,12 +36,12 @@ public class EventoService {
 		return list.stream().map(e -> new EventoDTO(e)).collect(Collectors.toList());
 	}
 
-	public EventoDTO findById(Integer id) {
+	public EventoDTO findById(Long id) {
 		Evento entity = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
 		return new EventoDTO(entity);
 	}
 
-	public void delete(Integer id) {
+	public void delete(Long id) {
 		try {
 			repository.deleteById(id);
 		} catch (EmptyResultDataAccessException e) {
@@ -52,7 +52,7 @@ public class EventoService {
 	}
 
 	@Transactional
-	public EventoDTO update(Integer id, EventoDTO obj) {
+	public EventoDTO update(Long id, EventoDTO obj) {
 		try {
 			Evento entity = repository.getOne(id);
 			updateData(entity, obj);

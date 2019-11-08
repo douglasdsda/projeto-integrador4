@@ -26,7 +26,7 @@ public class Evento implements Serializable {
 	@Id
 	@Column(name = "EVENTO_ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 
 	@Column(name = "TITULO")
 	private String titulo;
@@ -56,7 +56,7 @@ public class Evento implements Serializable {
 	public Evento() {
 	}
 
-	public Evento(Integer id, String titulo, String localNome, Instant data, String descricao, Endereco endereco) {
+	public Evento(Long id, String titulo, String localNome, Instant data, String descricao, Endereco endereco) {
 		super();
 		this.id = id;
 		this.titulo = titulo;
@@ -66,11 +66,11 @@ public class Evento implements Serializable {
 		this.endereco = endereco;
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
