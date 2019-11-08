@@ -8,7 +8,6 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
-import com.integrador.entities.Bairro;
 import com.integrador.entities.Endereco;
 import com.integrador.entities.Evento;
 

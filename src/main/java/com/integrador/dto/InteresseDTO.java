@@ -3,11 +3,7 @@ package com.integrador.dto;
 import java.io.Serializable;
 import java.time.Instant;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-
-import org.hibernate.validator.constraints.Length;
 
 import com.integrador.entities.Evento;
 import com.integrador.entities.Interesse;
@@ -23,19 +19,16 @@ public class InteresseDTO implements Serializable {
 
 	private Instant momento;
 
-	private Long IdUsuario;
+	@NotNull(message = "can't be null")
+	private Long idUsuario;
 
-	@NotEmpty(message = "can't be empty")
-	@Length(min = 3, max = 80, message = "string length must be between 3 and 80")
 	private String nomeUsuario;
 
-	@Email(message = "email invalid")
 	private String emailUsuario;
 
-	private Integer IdEvento;
+	@NotNull(message = "can't be null")
+	private Integer idEvento;
 
-	@NotEmpty(message = "can't be empty")
-	@Length(min = 3, max = 80, message = "string length must be between 3 and 80")
 	private String tituloEvento;
 
 	public InteresseDTO() {
@@ -46,20 +39,20 @@ public class InteresseDTO implements Serializable {
 		super();
 		this.tipoInteresse = tipoInteresse;
 		this.momento = momento;
-		IdUsuario = idUsuario;
+		this.idUsuario = idUsuario;
 		this.nomeUsuario = nomeUsuario;
 		this.emailUsuario = emailUsuario;
-		IdEvento = idEvento;
+		this.idEvento = idEvento;
 		this.tituloEvento = tituloEvento;
 	}
 
 	public InteresseDTO(Interesse entity) {
 		this.tipoInteresse = entity.getTipoInteresse();
 		this.momento = entity.getMomento();
-		IdUsuario = entity.getId().getParticipantes().getId();
+		idUsuario = entity.getId().getParticipantes().getId();
 		this.nomeUsuario = entity.getParticipantes().getNome();
 		this.emailUsuario = entity.getParticipantes().getEmail();
-		IdEvento = entity.getEventos().getId();
+		idEvento = entity.getEventos().getId();
 		this.tituloEvento = entity.getEventos().getTitulo();
 	}
 
@@ -80,11 +73,11 @@ public class InteresseDTO implements Serializable {
 	}
 
 	public Long getIdUsuario() {
-		return IdUsuario;
+		return idUsuario;
 	}
 
 	public void setIdUsuario(Long idUsuario) {
-		IdUsuario = idUsuario;
+		this.idUsuario = idUsuario;
 	}
 
 	public String getNomeUsuario() {
@@ -104,11 +97,11 @@ public class InteresseDTO implements Serializable {
 	}
 
 	public Integer getIdEvento() {
-		return IdEvento;
+		return idEvento;
 	}
 
 	public void setIdEvento(Integer idEvento) {
-		IdEvento = idEvento;
+		this.idEvento = idEvento;
 	}
 
 	public String getTituloEvento() {
@@ -120,8 +113,8 @@ public class InteresseDTO implements Serializable {
 	}
 	
 	public Interesse toEntity() {
-		Usuario user = new Usuario(IdUsuario, nomeUsuario, emailUsuario, null, null, null);
-		Evento evento = new Evento(IdEvento, tituloEvento, null, null, null, null);
+		Usuario user = new Usuario(idUsuario, nomeUsuario, emailUsuario, null, null, null);
+		Evento evento = new Evento(idEvento, tituloEvento, null, null, null, null);
 
 		return new Interesse(user, evento, tipoInteresse, momento);
 	}
