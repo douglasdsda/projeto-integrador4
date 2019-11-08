@@ -33,7 +33,7 @@ public class Interesse implements Serializable {
 		super();
 		setTipoInteresse(tipoInteresse);
 		this.momento = momento;
-		this.id.setParticipantes(participantes);
+		this.id.setUsuario(participantes);
 		this.id.setEventos(eventos);
 	}
 
@@ -69,12 +69,12 @@ public class Interesse implements Serializable {
 		this.id.setEventos(eventos);
 	}
 
-	public Usuario getParticipantes() {
-		return id.getParticipantes();
+	public Usuario getUsuario() {
+		return id.getUsuario();
 	}
 
-	public void setParticipantes(Usuario participantes) {
-		this.id.setParticipantes(participantes);
+	public void setUsuario(Usuario usuario) {
+		this.id.setUsuario(usuario);
 	}
 	
 

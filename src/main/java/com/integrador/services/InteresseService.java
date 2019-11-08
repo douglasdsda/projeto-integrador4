@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +19,7 @@ import com.integrador.entities.pk.InteressePK;
 import com.integrador.repository.EventoRepository;
 import com.integrador.repository.InteresseRepository;
 import com.integrador.repository.UsuarioRepository;
+import com.integrador.services.exceptions.DatabaseException;
 import com.integrador.services.exceptions.ResourceNotFoundException;
 
 @Service
@@ -54,5 +57,24 @@ public class InteresseService   {
 		eventoRepository.save(evento);
 		
 		return new InteresseDTO(interesse);
+	}
+
+	@Transactional
+	public void removeInteresse(Long idUsuario, Integer idEvento) {
+		try {
+			Usuario usuario = usuarioRepository.getOne(idUsuario);
+			Evento evento = eventoRepository.getOne(idEvento);
+			
+			InteressePK interessePK = new InteressePK();
+			interessePK.setEventos(evento);
+			interessePK.setUsuario(usuario);
+			
+			repository.deleteById(interessePK);
+			
+		} catch (EmptyResultDataAccessException e) {
+			throw new ResourceNotFoundException(e.getMessage());
+		} catch (DataIntegrityViolationException e) {
+			throw new DatabaseException(e.getMessage());
+		}
 	}
 }

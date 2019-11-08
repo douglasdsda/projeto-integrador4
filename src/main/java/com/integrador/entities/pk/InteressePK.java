@@ -20,7 +20,7 @@ public class InteressePK implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name = "USUARIO_ID")
-	private Usuario participante;
+	private Usuario usuario;
 
 	public Evento getEventos() {
 		return evento;
@@ -30,12 +30,12 @@ public class InteressePK implements Serializable {
 		this.evento = evento;
 	}
 
-	public Usuario getParticipantes() {
-		return participante;
+	public Usuario getUsuario() {
+		return usuario;
 	}
 
-	public void setParticipantes(Usuario participante) {
-		this.participante = participante;
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 	@Override
@@ -43,7 +43,7 @@ public class InteressePK implements Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((evento == null) ? 0 : evento.hashCode());
-		result = prime * result + ((participante == null) ? 0 : participante.hashCode());
+		result = prime * result + ((usuario == null) ? 0 : usuario.hashCode());
 		return result;
 	}
 
@@ -61,10 +61,10 @@ public class InteressePK implements Serializable {
 				return false;
 		} else if (!evento.equals(other.evento))
 			return false;
-		if (participante == null) {
-			if (other.participante != null)
+		if (usuario == null) {
+			if (other.usuario != null)
 				return false;
-		} else if (!participante.equals(other.participante))
+		} else if (!usuario.equals(other.usuario))
 			return false;
 		return true;
 	}

@@ -49,9 +49,9 @@ public class InteresseDTO implements Serializable {
 	public InteresseDTO(Interesse entity) {
 		this.tipoInteresse = entity.getTipoInteresse();
 		this.momento = entity.getMomento();
-		idUsuario = entity.getId().getParticipantes().getId();
-		this.nomeUsuario = entity.getParticipantes().getNome();
-		this.emailUsuario = entity.getParticipantes().getEmail();
+		idUsuario = entity.getId().getUsuario().getId();
+		this.nomeUsuario = entity.getUsuario().getNome();
+		this.emailUsuario = entity.getUsuario().getEmail();
 		idEvento = entity.getEventos().getId();
 		this.tituloEvento = entity.getEventos().getTitulo();
 	}
