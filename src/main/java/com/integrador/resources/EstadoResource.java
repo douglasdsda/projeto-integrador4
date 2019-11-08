@@ -1,5 +1,6 @@
 package com.integrador.resources;
 
+import java.net.URI;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -10,10 +11,12 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.integrador.dto.EstadoDTO;
 import com.integrador.services.EstadoService;
@@ -50,5 +53,14 @@ public class EstadoResource {
 	public ResponseEntity<EstadoDTO> update(@PathVariable Integer id, @Valid @RequestBody EstadoDTO obj) {
 		service.update(id, obj);
 		return ResponseEntity.ok().body(obj);
+	}
+	
+	@PostMapping
+	@PreAuthorize("hasAnyRole('ADMIN')")
+	public ResponseEntity<EstadoDTO> insert(@Valid @RequestBody EstadoDTO obj) {
+		EstadoDTO newDTO = service.insert(obj);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+				.buildAndExpand(newDTO.getId()).toUri();
+		return ResponseEntity.created(uri).body(newDTO);
 	}
 }

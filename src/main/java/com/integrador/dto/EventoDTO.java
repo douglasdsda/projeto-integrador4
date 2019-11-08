@@ -8,7 +8,6 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
-import com.integrador.entities.Bairro;
 import com.integrador.entities.Endereco;
 import com.integrador.entities.Evento;
 
@@ -41,8 +40,6 @@ public class EventoDTO implements Serializable {
 
 	private String enderecoLogradouro;
 	
-	private String enderecoBairro;
-
 	public EventoDTO() {
 	}
 
@@ -64,7 +61,7 @@ public class EventoDTO implements Serializable {
 		this.enderecoNumero = entity.getEndereco().getNumero();
 		this.enderecoComplemento = entity.getEndereco().getComplemento();
 		this.enderecoLogradouro = entity.getEndereco().getLogradouro();
-		this.enderecoBairro = entity.getEndereco().getBairro().getNome();
+		entity.getEndereco().getBairro().getNome();
 	}
 
 	public Integer getId() {

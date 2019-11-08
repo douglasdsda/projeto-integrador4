@@ -61,4 +61,10 @@ public class PaisService {
 	private void updateData(Pais entity, PaisDTO obj) {
 		entity.setNome(obj.getNome());
 	}
+	
+	public PaisDTO insert(PaisDTO obj) {
+		Pais entity = obj.toEntity();
+		entity = repository.save(entity);
+		return new PaisDTO(entity);	
+	}
 }

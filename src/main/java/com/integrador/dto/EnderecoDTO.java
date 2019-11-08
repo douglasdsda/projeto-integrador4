@@ -11,23 +11,23 @@ import com.integrador.entities.Endereco;
 
 public class EnderecoDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	private Integer id;
-	
+
 	@NotEmpty(message = "can't be empty")
 	@Length(min = 3, max = 80, message = "string length must be between 3 and 80")
 	private String logradouro;
-	
+
 	private Integer numero;
-		
-	private String enderecoBairroNome;
-	private Bairro enderecoBairro;
+
+	private Integer bairroId;
+	private String bairroNome;
 
 	@NotEmpty(message = "can't be empty")
 	private String complemento;
-	
+
 	public EnderecoDTO() {
-		
+
 	}
 
 	public EnderecoDTO(Integer id, String logradouro, Integer numero, String complemento) {
@@ -37,13 +37,15 @@ public class EnderecoDTO implements Serializable {
 		this.numero = numero;
 		this.complemento = complemento;
 	}
-	
+
 	public EnderecoDTO(Endereco entity) {
 		this.id = entity.getId();
 		this.logradouro = entity.getLogradouro();
 		this.numero = entity.getNumero();
 		this.complemento = entity.getComplemento();
-		this.enderecoBairroNome = entity.getBairro().getNome();
+		this.bairroNome = entity.getBairro().getNome();
+		this.bairroId = entity.getBairro().getId();
+		
 	}
 
 	public Integer getId() {
@@ -73,17 +75,33 @@ public class EnderecoDTO implements Serializable {
 	public String getComplemento() {
 		return complemento;
 	}
-	
-	
-	public String getEnderecoBairroNome() {
-		return enderecoBairroNome;
+
+	public Integer getBairroId() {
+		return bairroId;
 	}
 
-	public void setEnderecoBairro(String enderecoBairroNome) {
-		this.enderecoBairroNome = enderecoBairroNome;
+	public void setBairroId(Integer bairroId) {
+		this.bairroId = bairroId;
+	}
+
+	public String getBairroNome() {
+		return bairroNome;
+	}
+
+	public void setBairroNome(String bairroNome) {
+		this.bairroNome = bairroNome;
+	}
+
+	public void setLogradouro(String logradouro) {
+		this.logradouro = logradouro;
+	}
+
+	public void setComplemento(String complemento) {
+		this.complemento = complemento;
 	}
 
 	public Endereco toEntity() {
-		return new Endereco(id, logradouro, numero, complemento, enderecoBairro);
+		Bairro bairro = new Bairro(bairroId, bairroNome, null);
+		return new Endereco(id, logradouro, numero, complemento, bairro);
 	}
 }
