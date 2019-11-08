@@ -33,7 +33,6 @@ public class EventoService {
 	
 	@Autowired
 	private EnderecoRepository enderecoRepository;
- 
 
 	@Autowired
 	private CategoriaRepository categoriaRepository;

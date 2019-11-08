@@ -53,8 +53,8 @@ public class InteresseService   {
 		Interesse interesse = new Interesse(usuario, evento, interesseDTO.getTipoInteresse(), Instant.now());
 		repository.save(interesse);
 		
-		evento.getInteresses().add(interesse);
-		eventoRepository.save(evento);
+//		evento.getInteresses().add(interesse);
+//		eventoRepository.save(evento);
 		
 		return new InteresseDTO(interesse);
 	}
