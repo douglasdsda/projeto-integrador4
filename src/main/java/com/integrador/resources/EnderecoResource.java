@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.integrador.dto.EnderecoDTO;
-import com.integrador.dto.EnderecoDTO;
 import com.integrador.services.EnderecoService;
 
 @RestController
