@@ -16,7 +16,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.integrador.dto.EventoDTO;
+import com.integrador.dto.EventoDTOeEnderecoDTO;
 import com.integrador.entities.Categoria;
+import com.integrador.entities.Endereco;
 import com.integrador.entities.Evento;
 import com.integrador.repository.CategoriaRepository;
 import com.integrador.repository.EnderecoRepository;
@@ -30,38 +32,37 @@ public class EventoService {
 
 	@Autowired
 	private EventoRepository repository;
-	
+
 	@Autowired
 	private EnderecoRepository enderecoRepository;
- 
 
 	@Autowired
 	private CategoriaRepository categoriaRepository;
- 
-	
+
 	public List<EventoDTO> findAll() {
 		List<Evento> list = repository.findAll();
 		return list.stream().map(e -> new EventoDTO(e)).collect(Collectors.toList());
 	}
-	
+
 	public Page<EventoDTO> findByNameCategory(String titulo, String categoriasStr, Pageable pageable) {
 		Page<Evento> list;
-		if(categoriasStr.equals("")) {
+		if (categoriasStr.equals("")) {
 			list = repository.findByTituloContainingIgnoreCase(titulo, pageable);
 		} else {
 			List<Long> ids = parseIds(categoriasStr);
-			List<Categoria> categorias = ids.stream().map(id -> categoriaRepository.getOne(id)).collect(Collectors.toList());
+			List<Categoria> categorias = ids.stream().map(id -> categoriaRepository.getOne(id))
+					.collect(Collectors.toList());
 			list = repository.findByEventNameContainingIgnoreCaseAndCategoriesIn(titulo, categorias, pageable);
 		}
 		return list.map(e -> new EventoDTO(e));
 	}
-	
+
 	private List<Long> parseIds(String categoriasStr) {
 		String[] idsArray = categoriasStr.split(",");
 		List<Long> listId = new ArrayList<>();
-		for(String idStr : idsArray) {
+		for (String idStr : idsArray) {
 			try {
-			listId.add(Long.parseLong(idStr));
+				listId.add(Long.parseLong(idStr));
 			} catch (NumberFormatException e) {
 				throw new ParamFormatException("Invalid categories format");
 			}
@@ -108,12 +109,23 @@ public class EventoService {
 		entity = repository.save(entity);
 		return new EventoDTO(entity);
 	}
- 
 
 	public List<EventoDTO> findByCategoria(Long categoriaId) {
-		Categoria obj = categoriaRepository.getOne(categoriaId); 
+		Categoria obj = categoriaRepository.getOne(categoriaId);
 		Set<Evento> set = obj.getEventos();
 		return set.stream().map(e -> new EventoDTO(e)).collect(Collectors.toList());
 	}
- 
+
+	@Transactional
+	public EventoDTO insert(EventoDTOeEnderecoDTO visao) {
+		Endereco entityEndereco = visao.toEntityEndereco();
+		entityEndereco = enderecoRepository.save(entityEndereco);
+
+		Evento entityEvento = visao.toEntityEvento();
+		entityEvento.setEndereco(entityEndereco);
+		entityEvento = repository.save(entityEvento);
+
+		return new EventoDTO(entityEvento);
+	}
+
 }

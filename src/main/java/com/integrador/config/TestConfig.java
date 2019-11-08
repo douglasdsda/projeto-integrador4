@@ -131,18 +131,18 @@ public class TestConfig implements CommandLineRunner {
 
 		cidadeRepository.saveAll(Arrays.asList(cd1, cd2));
 
-		Bairro b1 = new Bairro(1, "Luizote", cd1);
-		Bairro b2 = new Bairro(2, "Umuarama", cd2);
-		Bairro b3 = new Bairro(2, "Centro", cd1);
-		Bairro b4 = new Bairro(2, "Santa Monica", cd1);
+		Bairro b1 = new Bairro(1l, "Luizote", cd1);
+		Bairro b2 = new Bairro(2l, "Umuarama", cd2);
+		Bairro b3 = new Bairro(2l, "Centro", cd1);
+		Bairro b4 = new Bairro(2l, "Santa Monica", cd1);
 
 		bairroRepository.saveAll(Arrays.asList(b1, b2,b3,b4));
 
-		Endereco e1 = new Endereco(null, "Rua Afonso Pena", 7, "Apartamento", b1);
-		Endereco e2 = new Endereco(null, "Avenida Afonso Pen", 1200, "Casa", b3);
-		Endereco e3 = new Endereco(null, "Rua Joaquim Sabino", 5, "Casa", b3);
-		Endereco e4 = new Endereco(null, "Floriano Peixoto", 1235, "Apartamento", b4);
-		Endereco e5 = new Endereco(null, "Jorge Augusto", 25, "Condominio", b2);
+		Endereco e1 = new Endereco(null, "Rua Afonso Pena", 7l, "Apartamento", b1);
+		Endereco e2 = new Endereco(null, "Avenida Afonso Pen", 1200l, "Casa", b3);
+		Endereco e3 = new Endereco(null, "Rua Joaquim Sabino", 5l, "Casa", b3);
+		Endereco e4 = new Endereco(null, "Floriano Peixoto", 1235l, "Apartamento", b4);
+		Endereco e5 = new Endereco(null, "Jorge Augusto", 25l, "Condominio", b2);
 
 		enderecoRepository.saveAll(Arrays.asList(e1, e2, e3, e4, e5));
 

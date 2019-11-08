@@ -23,7 +23,7 @@ public class Bairro implements Serializable {
 	@Id
 	@Column(name = "BAIRRO_ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 
 	@Column(name = "NOME")
 	private String nome;	
@@ -38,18 +38,18 @@ public class Bairro implements Serializable {
 	public Bairro() {
 	}
 
-	public Bairro(Integer id, String nome, Cidade cidade) {
+	public Bairro(Long id, String nome, Cidade cidade) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.cidade = cidade;
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

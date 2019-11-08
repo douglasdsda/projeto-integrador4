@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.integrador.dto.EventoDTO;
+import com.integrador.dto.EventoDTOeEnderecoDTO;
 import com.integrador.services.EventoService;
 
 @RestController
@@ -77,6 +78,15 @@ public class EventoResource {
 	@PreAuthorize("hasAnyRole('ADMIN')")
 	public ResponseEntity<EventoDTO> insert(@Valid @RequestBody EventoDTO obj) {
 		EventoDTO newDTO = service.insert(obj);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+				.buildAndExpand(newDTO.getId()).toUri();
+		return ResponseEntity.created(uri).body(newDTO);
+	}
+	
+	@PostMapping("/addEventoEndereco")
+	@PreAuthorize("hasAnyRole('ADMIN')")
+	public ResponseEntity<EventoDTO> insert(@Valid @RequestBody EventoDTOeEnderecoDTO dto) {
+		EventoDTO newDTO = service.insert(dto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(newDTO.getId()).toUri();
 		return ResponseEntity.created(uri).body(newDTO);

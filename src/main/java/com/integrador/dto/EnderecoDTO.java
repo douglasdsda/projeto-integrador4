@@ -12,15 +12,15 @@ import com.integrador.entities.Endereco;
 public class EnderecoDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private Integer id;
+	private Long id;
 
 	@NotEmpty(message = "can't be empty")
 	@Length(min = 3, max = 80, message = "string length must be between 3 and 80")
 	private String logradouro;
 
-	private Integer numero;
+	private Long numero;
 
-	private Integer bairroId;
+	private Long bairroId;
 	private String bairroNome;
 
 	@NotEmpty(message = "can't be empty")
@@ -30,7 +30,7 @@ public class EnderecoDTO implements Serializable {
 
 	}
 
-	public EnderecoDTO(Integer id, String logradouro, Integer numero, String complemento) {
+	public EnderecoDTO(Long id, String logradouro, Long numero, String complemento) {
 		super();
 		this.id = id;
 		this.logradouro = logradouro;
@@ -48,11 +48,11 @@ public class EnderecoDTO implements Serializable {
 		
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -64,11 +64,11 @@ public class EnderecoDTO implements Serializable {
 		this.logradouro = logradouro;
 	}
 
-	public Integer getNumero() {
+	public Long getNumero() {
 		return numero;
 	}
 
-	public void setNumero(Integer numero) {
+	public void setNumero(Long numero) {
 		this.numero = numero;
 	}
 
@@ -76,11 +76,11 @@ public class EnderecoDTO implements Serializable {
 		return complemento;
 	}
 
-	public Integer getBairroId() {
+	public Long getBairroId() {
 		return bairroId;
 	}
 
-	public void setBairroId(Integer bairroId) {
+	public void setBairroId(Long bairroId) {
 		this.bairroId = bairroId;
 	}
 

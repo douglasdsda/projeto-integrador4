@@ -32,15 +32,14 @@ public class EventoDTO implements Serializable {
 	@Length(min = 3, max = 80, message = "string length must be between 3 and 80")
 	private String descricao;
 
-	private Integer enderecoId;
+	private Long enderecoId;
 
-	private Integer enderecoNumero;
+	private Long enderecoNumero;
 
 	private String enderecoComplemento;
 
 	private String enderecoLogradouro;
-	
- 
+
 	public EventoDTO() {
 	}
 
@@ -62,7 +61,7 @@ public class EventoDTO implements Serializable {
 		this.enderecoNumero = entity.getEndereco().getNumero();
 		this.enderecoComplemento = entity.getEndereco().getComplemento();
 		this.enderecoLogradouro = entity.getEndereco().getLogradouro();
- 
+
 	}
 
 	public Long getId() {
@@ -104,7 +103,38 @@ public class EventoDTO implements Serializable {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-	
+
+	public Long getEnderecoId() {
+		return enderecoId;
+	}
+
+	public void setEnderecoId(Long enderecoId) {
+		this.enderecoId = enderecoId;
+	}
+
+	public Long getEnderecoNumero() {
+		return enderecoNumero;
+	}
+
+	public void setEnderecoNumero(Long enderecoNumero) {
+		this.enderecoNumero = enderecoNumero;
+	}
+
+	public String getEnderecoComplemento() {
+		return enderecoComplemento;
+	}
+
+	public void setEnderecoComplemento(String enderecoComplemento) {
+		this.enderecoComplemento = enderecoComplemento;
+	}
+
+	public String getEnderecoLogradouro() {
+		return enderecoLogradouro;
+	}
+
+	public void setEnderecoLogradouro(String enderecoLogradouro) {
+		this.enderecoLogradouro = enderecoLogradouro;
+	}
 
 	public Evento toEntity() {
 		Endereco endereco = new Endereco(enderecoId, enderecoLogradouro, enderecoNumero, enderecoComplemento, null);

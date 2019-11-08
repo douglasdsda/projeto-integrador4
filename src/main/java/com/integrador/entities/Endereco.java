@@ -23,10 +23,10 @@ public class Endereco implements Serializable {
 	@Id
 	@Column(name = "ENDERECO_ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 
 	@Column(name = "NUMERO")
-	private Integer numero;
+	private Long numero;
 
 	@Column(name = "COMPLEMENTO")
 	private String complemento;
@@ -45,7 +45,7 @@ public class Endereco implements Serializable {
 	}
 
 
-	public Endereco(Integer id, String logradouro, Integer numero, String complemento, Bairro bairro) {
+	public Endereco(Long id, String logradouro, Long numero, String complemento, Bairro bairro) {
 		super();
 		this.id = id;
 		this.logradouro = logradouro;
@@ -54,19 +54,19 @@ public class Endereco implements Serializable {
 		this.bairro = bairro;
 	}
 	
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public Integer getNumero() {
+	public Long getNumero() {
 		return numero;
 	}
 
-	public void setNumero(Integer numero) {
+	public void setNumero(Long numero) {
 		this.numero = numero;
 	}
 

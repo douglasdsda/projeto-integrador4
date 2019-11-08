@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import com.integrador.dto.EnderecoDTO;
 import com.integrador.entities.Endereco;
-import com.integrador.entities.Evento;
 import com.integrador.repository.EnderecoRepository;
 import com.integrador.services.exceptions.DatabaseException;
 import com.integrador.services.exceptions.ResourceNotFoundException;
@@ -36,7 +35,7 @@ public class EnderecoService {
 		return new EnderecoDTO(entity);
 	}
 	
-	public void delete(Integer id) {
+	public void delete(Long id) {
 		try {
 			repository.deleteById(id);
 		} catch (EmptyResultDataAccessException e) {
@@ -47,7 +46,7 @@ public class EnderecoService {
 	}
 
 	@Transactional
-	public EnderecoDTO update(Integer id, EnderecoDTO obj) {
+	public EnderecoDTO update(Long id, EnderecoDTO obj) {
 		try {
 			Endereco entity = repository.getOne(id);
 			updateData(entity, obj);
