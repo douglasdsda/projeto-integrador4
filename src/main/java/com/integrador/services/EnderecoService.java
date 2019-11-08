@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import com.integrador.dto.EnderecoDTO;
 import com.integrador.entities.Endereco;
+import com.integrador.entities.Evento;
 import com.integrador.repository.EnderecoRepository;
 import com.integrador.services.exceptions.DatabaseException;
 import com.integrador.services.exceptions.ResourceNotFoundException;
@@ -23,7 +24,6 @@ public class EnderecoService {
 	
 	@Autowired
 	private EnderecoRepository repository;
-
 	
 	public List<EnderecoDTO> findAll() {
 		List<Endereco> list = repository.findAll();
@@ -63,4 +63,11 @@ public class EnderecoService {
 		entity.setNumero(obj.getNumero());
 		entity.setComplemento(obj.getComplemento());
 	}
+	
+	public EnderecoDTO insert(EnderecoDTO obj) {
+		Endereco entity = obj.toEntity();
+		entity = repository.save(entity);
+		return new EnderecoDTO(entity);
+	}
+	
 }

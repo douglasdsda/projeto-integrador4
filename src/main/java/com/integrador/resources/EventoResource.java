@@ -6,6 +6,9 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -29,17 +33,32 @@ public class EventoResource {
 	private EventoService service;
 
 	@GetMapping
-	public ResponseEntity<List<EventoDTO>> findAll() {
-		List<EventoDTO> list = service.findAll();
+	public ResponseEntity<Page<EventoDTO>> findAllPaged(
+		@RequestParam(value="titulo", defaultValue="") String titulo,
+		@RequestParam(value="categorias", defaultValue="") String categorias,
+		@RequestParam(value="endereco", defaultValue="") String endereco,
+		@RequestParam(value="page", defaultValue="0") Integer page,
+		@RequestParam(value="linesPerPage", defaultValue="12") Integer linesPerPage,
+		@RequestParam(value="orderBy", defaultValue="titulo") String orderBy,
+		@RequestParam(value="direction", defaultValue="ASC") String direction
+	) {
+		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
+		Page<EventoDTO> list = service.findByNameCategory(titulo, categorias, pageRequest);
 		return ResponseEntity.ok().body(list);
 	}
-
+	
+	@GetMapping(value = "/categoria/{categoriaId}")
+	public ResponseEntity<List<EventoDTO>> findByCategoria(@PathVariable Long categoriaId){
+		List<EventoDTO> dtos = service.findByCategoria(categoriaId);
+		return ResponseEntity.ok().body(dtos);
+	}
+		
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<EventoDTO> findById(@PathVariable Long id) {
 		EventoDTO obj = service.findById(id);
 		return ResponseEntity.ok().body(obj);
 	}
-	
+	 	
 	@DeleteMapping(value = "/{id}")
 	@PreAuthorize("hasAnyRole('ADMIN')")
 	public ResponseEntity<Void> delete(@PathVariable Long id) {
@@ -64,11 +83,5 @@ public class EventoResource {
 	}
  
 	
-	@GetMapping(value = "/categoria/{categoriaId}")
-	public ResponseEntity<List<EventoDTO>> findByCategoria(@PathVariable Long categoriaId){
-		List<EventoDTO> dtos = service.findByCategoria(categoriaId);
-		return ResponseEntity.ok().body(dtos);
-	}
 
- 
 }
