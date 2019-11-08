@@ -61,4 +61,10 @@ public class EstadoService {
 	private void updateData(Estado entity, EstadoDTO obj) {
 		entity.setNome(obj.getNome());
 	}
+	
+	public EstadoDTO insert(EstadoDTO obj) {
+		Estado entity = obj.toEntity();
+		entity = repository.save(entity);
+		return new EstadoDTO(entity);	
+	}
 }

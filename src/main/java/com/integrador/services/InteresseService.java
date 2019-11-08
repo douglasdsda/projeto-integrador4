@@ -60,7 +60,7 @@ public class InteresseService   {
 	}
 
 	@Transactional
-	public void removeInteresse(Long idUsuario, Integer idEvento) {
+	public void removeInteresse(Long idUsuario, Long idEvento) {
 		try {
 			Usuario usuario = usuarioRepository.getOne(idUsuario);
 			Evento evento = eventoRepository.getOne(idEvento);

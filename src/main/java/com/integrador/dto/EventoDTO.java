@@ -15,7 +15,7 @@ public class EventoDTO implements Serializable {
 
 	private static final long serialVersionUID = 201910311932L;
 
-	private Integer id;
+	private Long id;
 
 	@NotEmpty(message = "can't be empty")
 	@Length(min = 3, max = 80, message = "string length must be between 3 and 80")
@@ -40,12 +40,11 @@ public class EventoDTO implements Serializable {
 
 	private String enderecoLogradouro;
 	
-	private String enderecoBairro;
-
+ 
 	public EventoDTO() {
 	}
 
-	public EventoDTO(Integer id, String titulo, String localNome, Instant data, String descricao) {
+	public EventoDTO(Long id, String titulo, String localNome, Instant data, String descricao) {
 		this.id = id;
 		this.titulo = titulo;
 		this.localNome = localNome;
@@ -63,14 +62,14 @@ public class EventoDTO implements Serializable {
 		this.enderecoNumero = entity.getEndereco().getNumero();
 		this.enderecoComplemento = entity.getEndereco().getComplemento();
 		this.enderecoLogradouro = entity.getEndereco().getLogradouro();
-		this.enderecoBairro = entity.getEndereco().getBairro().getNome();
+ 
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

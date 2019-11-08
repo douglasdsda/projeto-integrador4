@@ -61,4 +61,12 @@ public class BairroService {
 	private void updateData(Bairro entity, BairroDTO obj) {
 		entity.setNome(obj.getNome());
 	}
+	
+	public BairroDTO insert(BairroDTO obj) {
+		Bairro entity = obj.toEntity();
+		entity = repository.save(entity);
+		return new BairroDTO(entity);
+	}
+	
+
 }

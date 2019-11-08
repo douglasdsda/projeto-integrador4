@@ -27,7 +27,7 @@ public class InteresseDTO implements Serializable {
 	private String emailUsuario;
 
 	@NotNull(message = "can't be null")
-	private Integer idEvento;
+	private Long idEvento;
 
 	private String tituloEvento;
 
@@ -35,7 +35,7 @@ public class InteresseDTO implements Serializable {
 	}
 
 	public InteresseDTO(@NotNull(message = "can't be null") TipoInteresse tipoInteresse, Instant momento, Long idUsuario,
-			String nomeUsuario, String emailUsuario, Integer idEvento, String tituloEvento) {
+			String nomeUsuario, String emailUsuario, Long idEvento, String tituloEvento) {
 		super();
 		this.tipoInteresse = tipoInteresse;
 		this.momento = momento;
@@ -96,12 +96,12 @@ public class InteresseDTO implements Serializable {
 		this.emailUsuario = emailUsuario;
 	}
 
-	public Integer getIdEvento() {
-		return idEvento;
-	}
-
-	public void setIdEvento(Integer idEvento) {
+	public void setIdEvento(Long idEvento) {
 		this.idEvento = idEvento;
+	}
+	
+	public Long getIdEvento() {
+		return idEvento;
 	}
 
 	public String getTituloEvento() {

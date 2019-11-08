@@ -43,7 +43,7 @@ public class InteresseResource {
 
 	@DeleteMapping(value = "/{idUsuario}/{idEvento}/")
 	@PreAuthorize("hasAnyRole('ADMIN')")
-	public ResponseEntity<Void> delete(@PathVariable Long idUsuario, @PathVariable Integer idEvento) {
+	public ResponseEntity<Void> delete(@PathVariable Long idUsuario, @PathVariable Long idEvento) {
 		service.removeInteresse(idUsuario, idEvento);
 		return ResponseEntity.noContent().build();
 	}
