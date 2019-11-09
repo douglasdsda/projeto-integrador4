@@ -117,11 +117,11 @@ public class EventoService {
 	}
 
 	@Transactional
-	public EventoDTO insert(EventoDTOeEnderecoDTO visao) {
-		Endereco entityEndereco = visao.toEntityEndereco();
+	public EventoDTO insert(EventoDTOeEnderecoDTO dto) {
+		Endereco entityEndereco = dto.toEntityEndereco();
 		entityEndereco = enderecoRepository.save(entityEndereco);
 
-		Evento entityEvento = visao.toEntityEvento();
+		Evento entityEvento = dto.toEntityEvento();
 		entityEvento.setEndereco(entityEndereco);
 		entityEvento = repository.save(entityEvento);
 

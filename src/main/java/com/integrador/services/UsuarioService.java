@@ -2,6 +2,7 @@ package com.integrador.services;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityNotFoundException;
@@ -16,11 +17,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.integrador.dto.CategoriaDTO;
-import com.integrador.dto.InteresseDTO;
 import com.integrador.dto.UsuarioDTO;
 import com.integrador.dto.UsuarioInsertDTO;
 import com.integrador.entities.Categoria;
-import com.integrador.entities.Interesse;
 import com.integrador.entities.Usuario;
 import com.integrador.repository.CategoriaRepository;
 import com.integrador.repository.UsuarioRepository;
@@ -132,5 +131,11 @@ public class UsuarioService implements UserDetailsService {
 			Categoria category = categoryRepository.getOne(dto.getId());
 			entity.getCategorias().add(category);
 		}
+	}
+
+	@Transactional
+	public List<UsuarioDTO> findBySeguidores(Long usuarioId) {
+		Set<Usuario> set = repository.getOne(usuarioId).getSeguidores();
+		return set.stream().map(e -> new UsuarioDTO(e)).collect(Collectors.toList());
 	}
 }

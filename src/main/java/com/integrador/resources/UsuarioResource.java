@@ -81,4 +81,10 @@ public class UsuarioResource {
 		service.update(id, obj);
 		return ResponseEntity.ok().body(obj);
 	}
+	
+	@GetMapping(value = "/seguidores/{usuarioId}")
+	public ResponseEntity<List<UsuarioDTO>> findBySeguidores(@PathVariable Long usuarioId) {
+		List<UsuarioDTO> dtos = service.findBySeguidores(usuarioId);
+		return ResponseEntity.ok().body(dtos);
+	}
 }
