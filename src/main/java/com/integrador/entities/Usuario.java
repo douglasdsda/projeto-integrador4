@@ -64,7 +64,7 @@ public class Usuario implements UserDetails {
 			)
 	private Set<Categoria> categorias = new HashSet<>();
 	
-	@OneToMany(mappedBy = "id.participante")
+	@OneToMany(mappedBy = "id.usuario")
 	private Set<Interesse> interesses = new HashSet<>();
 
 	@ManyToMany(fetch = FetchType.EAGER)

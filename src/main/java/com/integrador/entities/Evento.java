@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -66,6 +67,10 @@ public class Evento implements Serializable {
 		this.endereco = endereco;
 	}
 
+	public Set<Usuario> getParticipantes() {
+		return interesses.stream().map(x -> x.getUsuario()).collect(Collectors.toSet());
+	}
+	
 	public Long getId() {
 		return id;
 	}
@@ -120,21 +125,7 @@ public class Evento implements Serializable {
 	
 	public Set<Interesse> getInteresses() {
 		return interesses;
-	}
-
-
-	/**
-	 * 	METODO + getParticipants(): List<User> 
-	 * */
-	
-	public Set<Usuario> getParticipantes(){
-		Set<Usuario> set = new HashSet<>();
-		for(Interesse x : interesses) {
-			set.add(x.getParticipantes());
-		}
-		return set;
-	} 
-	
+	}	
 
 	@Override
 	public int hashCode() {
