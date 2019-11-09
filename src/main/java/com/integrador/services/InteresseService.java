@@ -2,6 +2,7 @@ package com.integrador.services;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ import com.integrador.services.exceptions.DatabaseException;
 import com.integrador.services.exceptions.ResourceNotFoundException;
 
 @Service
-public class InteresseService   {
+public class InteresseService {
 
 	@Autowired
 	private InteresseRepository repository;
@@ -32,13 +33,13 @@ public class InteresseService   {
 	private UsuarioRepository usuarioRepository;
 
 	@Autowired
-	private EventoRepository eventoRepository;	
-	
+	private EventoRepository eventoRepository;
+
 	public List<InteresseDTO> findAll() {
 		List<Interesse> list = repository.findAll();
 		return list.stream().map(e -> new InteresseDTO(e)).collect(Collectors.toList());
 	}
-	
+
 	public InteresseDTO findById(InteressePK id) {
 		Interesse entity = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
 		return new InteresseDTO(entity);
@@ -49,13 +50,13 @@ public class InteresseService   {
 	public InteresseDTO addInteresse(InteresseDTO interesseDTO) {
 		Usuario usuario = usuarioRepository.getOne(interesseDTO.getIdUsuario());
 		Evento evento = eventoRepository.getOne(interesseDTO.getIdEvento());
-		
+
 		Interesse interesse = new Interesse(usuario, evento, interesseDTO.getTipoInteresse(), Instant.now());
 		repository.save(interesse);
-		
+
 //		evento.getInteresses().add(interesse);
 //		eventoRepository.save(evento);
-		
+
 		return new InteresseDTO(interesse);
 	}
 
@@ -64,17 +65,23 @@ public class InteresseService   {
 		try {
 			Usuario usuario = usuarioRepository.getOne(idUsuario);
 			Evento evento = eventoRepository.getOne(idEvento);
-			
+
 			InteressePK interessePK = new InteressePK();
 			interessePK.setEventos(evento);
 			interessePK.setUsuario(usuario);
-			
+
 			repository.deleteById(interessePK);
-			
+
 		} catch (EmptyResultDataAccessException e) {
 			throw new ResourceNotFoundException(e.getMessage());
 		} catch (DataIntegrityViolationException e) {
 			throw new DatabaseException(e.getMessage());
 		}
+	}
+
+	public List<InteresseDTO> findByUsuario(Long usuarioId) {
+
+		Set<Interesse> set = repository.findByUsuario(usuarioId);
+		return set.stream().map(e -> new InteresseDTO(e)).collect(Collectors.toList());
 	}
 }

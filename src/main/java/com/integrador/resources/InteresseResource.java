@@ -47,4 +47,10 @@ public class InteresseResource {
 		service.removeInteresse(idUsuario, idEvento);
 		return ResponseEntity.noContent().build();
 	}
+	
+	@GetMapping(value = "/usuario/{usuarioId}")
+	public ResponseEntity<List<InteresseDTO>> findByCategoria(@PathVariable Long usuarioId){
+		List<InteresseDTO> dtos = service.findByUsuario(usuarioId);
+		return ResponseEntity.ok().body(dtos);
+	}
 }
