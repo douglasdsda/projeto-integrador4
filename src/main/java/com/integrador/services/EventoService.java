@@ -128,4 +128,9 @@ public class EventoService {
 		return new EventoDTO(entityEvento);
 	}
 
+	public List<EventoDTO> listar() {
+		List<Evento> list = repository.findAll();
+		return list.stream().map(e -> new EventoDTO(e)).collect(Collectors.toList());
+	}
+
 }

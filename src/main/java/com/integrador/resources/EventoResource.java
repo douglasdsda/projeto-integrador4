@@ -46,6 +46,14 @@ public class EventoResource {
 		Page<EventoDTO> list = service.findByNameCategory(titulo, categorias, pageRequest);
 		return ResponseEntity.ok().body(list);
 	}
+	
+	
+	@GetMapping(value = "/listar")
+	public ResponseEntity<List<EventoDTO>> listar(
+			 ) {
+		List<EventoDTO> list = service.listar();
+		return ResponseEntity.ok().body(list);
+	}
 
 	@GetMapping(value = "/categoria/{categoriaId}")
 	public ResponseEntity<List<EventoDTO>> findByCategoria(@PathVariable Long categoriaId) {
