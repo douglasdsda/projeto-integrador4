@@ -133,4 +133,9 @@ public class EventoService {
 		return list.stream().map(e -> new EventoDTO(e)).collect(Collectors.toList());
 	}
 
+	public List<EventoDTO> listarFiltro(String titulo) {
+		List<Evento> list = repository.findByTituloContainingIgnoreCase(titulo);
+		return list.stream().map(e -> new EventoDTO(e)).collect(Collectors.toList());
+	}
+
 }

@@ -22,4 +22,6 @@ public interface EventoRepository extends JpaRepository<Evento, Long> {
 	@Query("SELECT obj FROM Evento obj WHERE LOWER(obj.titulo) LIKE LOWER(CONCAT('%',:titulo,'%'))")
 	Page<Evento> findByTituloContainingIgnoreCase(String titulo, Pageable pageable);
 
+	List<Evento> findByTituloContainingIgnoreCase(String titulo);
+
 }

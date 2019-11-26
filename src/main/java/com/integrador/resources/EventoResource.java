@@ -47,6 +47,13 @@ public class EventoResource {
 		return ResponseEntity.ok().body(list);
 	}
 	
+	@GetMapping(value = "/listarFiltro")
+	public ResponseEntity<List<EventoDTO>> listarFiltro(@RequestParam (value = "titulo") String titulo
+			 ) {
+		List<EventoDTO> list = service.listarFiltro(titulo);
+		return ResponseEntity.ok().body(list);
+	}
+	
 	
 	@GetMapping(value = "/listar")
 	public ResponseEntity<List<EventoDTO>> listar(
