@@ -1,7 +1,11 @@
 package com.integrador.dto;
 
 import java.io.Serializable;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -9,8 +13,9 @@ import javax.validation.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Length;
 
 import com.integrador.entities.Usuario;
+import com.integrador.services.validation.UsuarioInsertValid;
 
-//@UsuarioInsertValid
+@UsuarioInsertValid
 public class UsuarioInsertDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
@@ -61,12 +66,12 @@ public class UsuarioInsertDTO implements Serializable {
 		this.id = id;
 	}
 
-	public String getName() {
+	public String getNome() {
 		return nome;
 	}
 
-	public void setName(String name) {
-		this.nome = name;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 	public String getEmail() {
@@ -75,6 +80,18 @@ public class UsuarioInsertDTO implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public LocalDate getDataNascimento() {
+		return dataNascimento;
+	}
+
+	public void setDataNascimento(String dataNascimento) {
+		String[] arrOfStr = dataNascimento.split("\\+");
+		String dateInString = arrOfStr[0] + "Z";
+        Instant instant = Instant.parse(dateInString);
+        LocalDate localDate = LocalDateTime.ofInstant(instant, ZoneId.of(ZoneOffset.UTC.getId())).toLocalDate();
+		this.dataNascimento = localDate;
 	}
 
 	public String getPassword() {
