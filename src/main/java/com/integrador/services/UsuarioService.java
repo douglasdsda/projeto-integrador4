@@ -52,6 +52,14 @@ public class UsuarioService implements UserDetailsService {
 		Usuario entity = obj.orElseThrow(() -> new ResourceNotFoundException(id));
 		return new UsuarioDTO(entity);
 	}
+
+	public UsuarioDTO findByEmail(String email) {
+		Usuario obj = repository.findByEmail(email);
+		if(obj == null) {
+			throw new UsernameNotFoundException(email);
+		}
+		return new UsuarioDTO(obj);
+	}
 	
 	public UsuarioDTO insert(UsuarioInsertDTO obj) {
 		Usuario entity = obj.toEntity();
