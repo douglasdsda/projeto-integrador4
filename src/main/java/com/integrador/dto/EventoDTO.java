@@ -39,6 +39,10 @@ public class EventoDTO implements Serializable {
 	private String enderecoComplemento;
 
 	private String enderecoLogradouro;
+	
+	private String categoriaNome;
+	
+	private Long categoriaId;
 
 	public EventoDTO() {
 	}
@@ -61,7 +65,6 @@ public class EventoDTO implements Serializable {
 		this.enderecoNumero = entity.getEndereco().getNumero();
 		this.enderecoComplemento = entity.getEndereco().getComplemento();
 		this.enderecoLogradouro = entity.getEndereco().getLogradouro();
-
 	}
 
 	public Long getId() {
@@ -134,6 +137,22 @@ public class EventoDTO implements Serializable {
 
 	public void setEnderecoLogradouro(String enderecoLogradouro) {
 		this.enderecoLogradouro = enderecoLogradouro;
+	}
+	
+	public String getCategoriaNome() {
+		return categoriaNome;
+	}
+
+	public void setCategoriaNome(String categoriaNome) {
+		this.categoriaNome = categoriaNome;
+	}
+
+	public Long getCategoriaId() {
+		return categoriaId;
+	}
+
+	public void setCategoriaId(Long categoriaId) {
+		this.categoriaId = categoriaId;
 	}
 
 	public Evento toEntity() {

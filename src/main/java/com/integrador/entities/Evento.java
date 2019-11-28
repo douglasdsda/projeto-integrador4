@@ -125,7 +125,8 @@ public class Evento implements Serializable {
 	
 	public Set<Interesse> getInteresses() {
 		return interesses;
-	}	
+	}
+	
 
 	@Override
 	public int hashCode() {

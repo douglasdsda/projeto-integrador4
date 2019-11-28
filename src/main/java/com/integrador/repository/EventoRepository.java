@@ -21,7 +21,18 @@ public interface EventoRepository extends JpaRepository<Evento, Long> {
 	@Transactional(readOnly = true)
 	@Query("SELECT obj FROM Evento obj WHERE LOWER(obj.titulo) LIKE LOWER(CONCAT('%',:titulo,'%'))")
 	Page<Evento> findByTituloContainingIgnoreCase(String titulo, Pageable pageable);
+	
+	
+	@Transactional(readOnly = true)
+	@Query("SELECT DISTINCT obj FROM Evento obj INNER JOIN obj.tipos cats WHERE LOWER(obj.titulo) LIKE LOWER(CONCAT('%',:titulo,'%')) AND cats IN :tipos")
+	List<Evento> findByEventNameContainingIgnoreCaseAndCategoriesIn(String titulo, List<Categoria> tipos);
 
 	List<Evento> findByTituloContainingIgnoreCase(String titulo);
+	
+	
+	@Transactional(readOnly = true)
+	@Query("SELECT DISTINCT obj FROM Evento obj INNER JOIN obj.tipos cats WHERE LOWER(obj.titulo) LIKE LOWER(CONCAT('%',:titulo,'%')) AND (cats.id = :categoriaId or :categoriaId = 0)")
+	List<Evento> findByCategoriaETitulo(Long categoriaId, String titulo);
+
 
 }
