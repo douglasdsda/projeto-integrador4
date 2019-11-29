@@ -13,6 +13,12 @@ public class TokenDTO implements Serializable {
 		
 	}
 
+	public TokenDTO(String email, String token) {
+		super();
+		this.email = email;
+		this.token = token;
+	}
+
 	public TokenDTO(String email, String token, Long id) {
 		super();
 		this.email = email;

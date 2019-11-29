@@ -2,12 +2,15 @@ package com.integrador.dto;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.validator.constraints.Length;
 
+import com.integrador.entities.Categoria;
 import com.integrador.entities.Usuario;
 import com.integrador.services.validation.UsuarioUpdateValid;
 
@@ -30,6 +33,8 @@ public class UsuarioDTO implements Serializable {
 	
 	private Boolean firstLogin;
 	
+	private Set<Categoria> categorias = new HashSet<>();
+	
 	public UsuarioDTO() {
 		
 	}
@@ -51,6 +56,7 @@ public class UsuarioDTO implements Serializable {
 		this.fotoPerfil = entity.getFotoPerfil();
 		this.dataNascimento = entity.getDataNascimento();
 		this.firstLogin = entity.getFirstLogin();
+		this.categorias = entity.getCategorias();
 	}
 
 	public Long getId() {
@@ -101,6 +107,10 @@ public class UsuarioDTO implements Serializable {
 		this.firstLogin = firstLogin;
 	}
 
+	public Set<Categoria> getCategorias() {
+		return categorias;
+	}
+	
 	public Usuario toEntity() {
 		return new Usuario(id, nome, email, fotoPerfil, dataNascimento, null, firstLogin);
 	}
