@@ -47,7 +47,8 @@ public class AuthService {
 					dto.getPassword());
 			authenticationManager.authenticate(authToken);
 			String token = jwtUtil.generateToken(dto.getEmail());
-			return new TokenDTO(dto.getEmail(), token);
+			Long id = userRepository.findByEmail(dto.getEmail()).getId();
+			return new TokenDTO(dto.getEmail(), token, id);
 		} catch (AuthenticationException e) {
 			throw new JWTAuthenticationException("Bad credentials");
 		}
@@ -75,7 +76,8 @@ public class AuthService {
 	
 	public TokenDTO refreshToken() {
 		Usuario user = authenticated();
-		return new TokenDTO(user.getEmail(), jwtUtil.generateToken(user.getEmail()));
+		Long id = user.getId();
+		return new TokenDTO(user.getEmail(), jwtUtil.generateToken(user.getEmail()),id);
 	}
 	
 	@Transactional

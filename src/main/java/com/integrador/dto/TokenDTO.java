@@ -7,15 +7,17 @@ public class TokenDTO implements Serializable {
 	
 	private String email;
 	private String token;
+	private Long id;
 	
 	public TokenDTO() {
 		
 	}
 
-	public TokenDTO(String email, String token) {
+	public TokenDTO(String email, String token, Long id) {
 		super();
 		this.email = email;
 		this.token = token;
+		this.id = id;
 	}
 
 	public String getEmail() {
@@ -32,5 +34,13 @@ public class TokenDTO implements Serializable {
 
 	public void setToken(String token) {
 		this.token = token;
+	}
+	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}	
 }
