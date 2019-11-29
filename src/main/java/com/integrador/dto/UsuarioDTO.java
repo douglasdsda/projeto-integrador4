@@ -28,17 +28,20 @@ public class UsuarioDTO implements Serializable {
 	private String fotoPerfil;
 	private LocalDate dataNascimento;
 	
+	private Boolean firstLogin;
+	
 	public UsuarioDTO() {
 		
 	}
 	
-	public UsuarioDTO(Long id, String nome, String email, String fotoPerfil, LocalDate dataNascimento) {
+	public UsuarioDTO(Long id, String nome, String email, String fotoPerfil, LocalDate dataNascimento, Boolean firstLogin) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.email = email;
 		this.fotoPerfil = fotoPerfil;
 		this.dataNascimento = dataNascimento;
+		this.firstLogin = firstLogin;
 	}
 	
 	public UsuarioDTO(Usuario entity) {
@@ -47,6 +50,7 @@ public class UsuarioDTO implements Serializable {
 		this.email = entity.getEmail();
 		this.fotoPerfil = entity.getFotoPerfil();
 		this.dataNascimento = entity.getDataNascimento();
+		this.firstLogin = entity.getFirstLogin();
 	}
 
 	public Long getId() {
@@ -88,8 +92,16 @@ public class UsuarioDTO implements Serializable {
 	public void setDataNascimento(LocalDate dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
+	
+	public Boolean getFirstLogin() {
+		return firstLogin;
+	}
+
+	public void setFirstLogin(Boolean firstLogin) {
+		this.firstLogin = firstLogin;
+	}
 
 	public Usuario toEntity() {
-		return new Usuario(id, nome, email, fotoPerfil, dataNascimento, null);
+		return new Usuario(id, nome, email, fotoPerfil, dataNascimento, null, firstLogin);
 	}
 }

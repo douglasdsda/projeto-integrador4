@@ -113,7 +113,7 @@ public class InteresseDTO implements Serializable {
 	}
 	
 	public Interesse toEntity() {
-		Usuario user = new Usuario(idUsuario, nomeUsuario, emailUsuario, null, null, null);
+		Usuario user = new Usuario(idUsuario, nomeUsuario, emailUsuario, null, null, null, false);
 		Evento evento = new Evento(idEvento, tituloEvento, null, null, null, null);
 
 		return new Interesse(user, evento, tipoInteresse, momento);

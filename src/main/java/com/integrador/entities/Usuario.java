@@ -47,6 +47,9 @@ public class Usuario implements UserDetails {
 
 	private String password;
 
+	@Column(name="FIRST_LOGIN")
+	private Boolean firstLogin;
+	
 	@ManyToMany(cascade={CascadeType.ALL}, fetch=FetchType.EAGER)
 	@JoinTable(name="usuario_seguidor",
 		joinColumns={@JoinColumn(name="USUARIO_ID")},
@@ -74,7 +77,7 @@ public class Usuario implements UserDetails {
 	public Usuario() {
 	}
 
-	public Usuario(Long id, String nome, String email, String fotoPerfil, LocalDate dataNascimento, String password) {
+	public Usuario(Long id, String nome, String email, String fotoPerfil, LocalDate dataNascimento, String password, Boolean firstLogin) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -82,6 +85,7 @@ public class Usuario implements UserDetails {
 		this.fotoPerfil = fotoPerfil;
 		this.dataNascimento = dataNascimento;
 		this.password = password;
+		this.firstLogin = firstLogin;
 	}
 
 	public Long getId() {
@@ -133,6 +137,13 @@ public class Usuario implements UserDetails {
 		this.dataNascimento = dataNascimento;
 	}
 
+	public Boolean getFirstLogin() {
+		return firstLogin;
+	}
+
+	public void setFirstLogin(Boolean firstLogin) {
+		this.firstLogin = firstLogin;
+	}
 
 	public Set<Usuario> getSeguidores() {
 		return seguidores;

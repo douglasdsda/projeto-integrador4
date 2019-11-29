@@ -103,6 +103,6 @@ public class UsuarioInsertDTO implements Serializable {
 	}
 
 	public Usuario toEntity() {
-		return new Usuario(id, nome, email, fotoPerfil, dataNascimento, password);
+		return new Usuario(id, nome, email, fotoPerfil, dataNascimento, password, true);
 	}
 }

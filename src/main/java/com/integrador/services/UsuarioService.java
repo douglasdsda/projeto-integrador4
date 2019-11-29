@@ -113,6 +113,7 @@ public class UsuarioService implements UserDetailsService {
 		Usuario usuario = repository.getOne(id);
 		Categoria categoria = categoryRepository.getOne(dto.getId());
 		usuario.getCategorias().add(categoria);
+		usuario.setFirstLogin(false);
 		repository.save(usuario);
 	}
 	
@@ -130,6 +131,7 @@ public class UsuarioService implements UserDetailsService {
 		authService.validateSelfOrAdmin(id);
 		Usuario usuario = repository.getOne(id);
 		setUsuarioCategorias(usuario, categoriesDto);
+		usuario.setFirstLogin(false);
 		repository.save(usuario);
 	}
 
