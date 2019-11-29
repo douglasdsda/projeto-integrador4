@@ -44,7 +44,7 @@ public class Usuario implements UserDetails {
 	@Column(name="DATA_NASCIMENTO")
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dataNascimento;
-	
+
 	private String password;
 
 	@ManyToMany(cascade={CascadeType.ALL}, fetch=FetchType.EAGER)
