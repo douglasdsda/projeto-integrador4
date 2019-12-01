@@ -16,5 +16,14 @@ public interface InteresseRepository extends JpaRepository<Interesse, InteresseP
 			+ "	WHERE "
 			+ "	obj.id.usuario.id = :usuarioId")
 	Set<Interesse> findByUsuario(Long usuarioId);
+
+	 
+
+
+	@Query("FROM"
+			+ " Interesse obj"
+			+ "	WHERE "
+			+ "	obj.id.usuario.id = :codUsuario and obj.id.evento.id = :eventoId")
+	Interesse findByIdUsuarioIdEventoId(Long codUsuario, Long eventoId);
 	
 }

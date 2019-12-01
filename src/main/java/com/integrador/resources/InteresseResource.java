@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -52,5 +54,24 @@ public class InteresseResource {
 	public ResponseEntity<List<InteresseDTO>> findByCategoria(@PathVariable Long usuarioId){
 		List<InteresseDTO> dtos = service.findByUsuario(usuarioId);
 		return ResponseEntity.ok().body(dtos);
+	}
+	
+	@PutMapping(value = "/trocarTipoInteressePorUsuario")
+	public ResponseEntity<Void> trocarTipoInteressePorUsuario(
+			@RequestParam int escolha,
+			@RequestParam Long eventoId,
+			@RequestParam Long codUsuario
+			){
+		 service.trocarTipoInteressePorUsuario(escolha,eventoId,codUsuario );
+		return ResponseEntity.noContent().build();
+	}
+	
+	@GetMapping(value = "/pegarTipoInteresse")
+	public  ResponseEntity<Integer> pegarTipoInteresse(
+			@RequestParam Long eventoId,
+			@RequestParam Long codUsuario
+			){
+		  int id = service.pegarTipoInteresse(eventoId,codUsuario );
+		return ResponseEntity.ok().body(id);
 	}
 }

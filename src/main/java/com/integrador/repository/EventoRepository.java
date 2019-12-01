@@ -34,5 +34,5 @@ public interface EventoRepository extends JpaRepository<Evento, Long> {
 	@Query("SELECT DISTINCT obj FROM Evento obj INNER JOIN obj.tipos cats WHERE LOWER(obj.titulo) LIKE LOWER(CONCAT('%',:titulo,'%')) AND (cats.id = :categoriaId or :categoriaId = 0)")
 	List<Evento> findByCategoriaETitulo(Long categoriaId, String titulo);
 
-
+  
 }

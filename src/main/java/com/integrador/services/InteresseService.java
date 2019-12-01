@@ -17,6 +17,7 @@ import com.integrador.entities.Evento;
 import com.integrador.entities.Interesse;
 import com.integrador.entities.Usuario;
 import com.integrador.entities.pk.InteressePK;
+import com.integrador.enums.TipoInteresse;
 import com.integrador.repository.EventoRepository;
 import com.integrador.repository.InteresseRepository;
 import com.integrador.repository.UsuarioRepository;
@@ -83,5 +84,34 @@ public class InteresseService {
 
 		Set<Interesse> set = repository.findByUsuario(usuarioId);
 		return set.stream().map(e -> new InteresseDTO(e)).collect(Collectors.toList());
+	}
+
+	@Transactional
+	public void trocarTipoInteressePorUsuario(int escolha, Long eventoId, Long codUsuario) {
+		Interesse interesse = repository.findByIdUsuarioIdEventoId(codUsuario,eventoId );
+		
+		if(interesse != null) { // alterar
+			interesse.setTipoInteresse(TipoInteresse.valueOf(escolha));
+			repository.save(interesse);
+			
+		} else {
+			// novo interesse
+			Usuario usuario = usuarioRepository.getOne(codUsuario);
+			Evento evento = eventoRepository.getOne( eventoId);
+			
+			Interesse interesseNovo = new Interesse(usuario, evento, TipoInteresse.valueOf(escolha), Instant.now());
+			repository.save(interesseNovo);
+			
+		}
+		
+		
+	}
+	@Transactional
+	public int pegarTipoInteresse(Long eventoId, Long codUsuario) {
+		Interesse interesse = repository.findByIdUsuarioIdEventoId(codUsuario,eventoId );
+		if(interesse != null) {
+			return interesse.getTipoInteresse().getCodigo();
+		}
+		return -1;
 	}
 }
