@@ -56,6 +56,12 @@ public class InteresseResource {
 		return ResponseEntity.ok().body(dtos);
 	}
 	
+	@GetMapping(value = "/seguidor/{usuarioId}")
+	public ResponseEntity<List<InteresseDTO>> findSeguidorPeloUsuarioId(@PathVariable Long usuarioId){
+		List<InteresseDTO> dtos = service.findSeguidorPeloUsuarioId(usuarioId);
+		return ResponseEntity.ok().body(dtos);
+	}
+	
 	@PutMapping(value = "/trocarTipoInteressePorUsuario")
 	public ResponseEntity<Void> trocarTipoInteressePorUsuario(
 			@RequestParam int escolha,

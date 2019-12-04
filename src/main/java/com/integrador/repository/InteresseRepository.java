@@ -30,4 +30,10 @@ public interface InteresseRepository extends JpaRepository<Interesse, InteresseP
 	List<Interesse> findAllByOrderByMomentoDesc();
 	
 	
+	@Query("FROM"
+			+ " Interesse obj"
+			+ "	WHERE "
+			+ "	obj.id.usuario.id = :codUsuario")
+	List<Interesse> findByIdUsuarioId(Long codUsuario);
+	
 }
