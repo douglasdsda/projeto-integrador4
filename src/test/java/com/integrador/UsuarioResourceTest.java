@@ -13,6 +13,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -47,9 +48,7 @@ public class UsuarioResourceTest {
 	public void setup() {
         MockitoAnnotations.initMocks(this);	
         when(usuarioService.findAll()).thenReturn(listaUsuarios);
-        when(usuarioService.insert(usuarioInsertDTO)).thenReturn(usuarioDTO);
-//        when(usuarioService.delete((long)1)).thenReturn(Void);
-        
+        when(usuarioService.insert(usuarioInsertDTO)).thenReturn(usuarioDTO);        
 		this.mvcUsuario = MockMvcBuilders.standaloneSetup(usuarioResource).build();
 	}
 	
@@ -82,6 +81,6 @@ public class UsuarioResourceTest {
 	@Test
 	public void testDeleteUser() throws Exception {	    
 		this.mvcUsuario.perform(delete("/usuarios/1"))
-				        .andExpect(status().isOk());
+				        .andExpect(status().isNoContent());
 	}
 }
