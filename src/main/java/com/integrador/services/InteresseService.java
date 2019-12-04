@@ -1,6 +1,8 @@
 package com.integrador.services;
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -113,5 +115,22 @@ public class InteresseService {
 			return interesse.getTipoInteresse().getCodigo();
 		}
 		return -1;
+	}
+
+	@Transactional
+	public List<InteresseDTO> findSeguidorPeloUsuarioId(Long usuarioId) {
+		Set<Usuario> seguidores = new HashSet<>() ;
+		List<Interesse> interesses = new ArrayList<>();
+		Usuario user = usuarioRepository.getOne(usuarioId);
+		if(user!= null) {
+			  seguidores = user.getSeguidores(); 
+		}
+		
+		for (Usuario usuario : seguidores) {
+		 List<Interesse> interesseLista = repository.findByIdUsuarioId(usuario.getId());
+		 interesses.addAll(interesseLista);
+		}
+		
+		return interesses.stream().map(e -> new InteresseDTO(e)).collect(Collectors.toList());
 	}
 }
