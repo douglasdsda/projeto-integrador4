@@ -1,5 +1,6 @@
 package com.integrador.repository;
 
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -25,5 +26,8 @@ public interface InteresseRepository extends JpaRepository<Interesse, InteresseP
 			+ "	WHERE "
 			+ "	obj.id.usuario.id = :codUsuario and obj.id.evento.id = :eventoId")
 	Interesse findByIdUsuarioIdEventoId(Long codUsuario, Long eventoId);
+
+	List<Interesse> findAllByOrderByMomentoDesc();
+	
 	
 }

@@ -36,8 +36,8 @@ public class InteresseService {
 	@Autowired
 	private EventoRepository eventoRepository;
 
-	public List<InteresseDTO> findAll() {
-		List<Interesse> list = repository.findAll();
+	public List<InteresseDTO> findAll() {  
+		List<Interesse> list = repository.findAllByOrderByMomentoDesc();
 		return list.stream().map(e -> new InteresseDTO(e)).collect(Collectors.toList());
 	}
 
@@ -92,6 +92,7 @@ public class InteresseService {
 		
 		if(interesse != null) { // alterar
 			interesse.setTipoInteresse(TipoInteresse.valueOf(escolha));
+			interesse.setMomento(Instant.now());
 			repository.save(interesse);
 			
 		} else {
