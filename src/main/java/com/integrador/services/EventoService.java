@@ -138,11 +138,9 @@ public class EventoService {
 		return list.stream().map(e -> new EventoDTO(e)).collect(Collectors.toList());
 	}
 
+	@Transactional
 	public List<EventoDTO> filtroCategoriaETitulo(Long categoriaId, String titulo) {
-		 
 		List<Evento> list = repository.findByCategoriaETitulo(categoriaId, titulo);
-		 
- 
 		return list.stream().map(e -> new EventoDTO(e)).collect(Collectors.toList());
 	}
 

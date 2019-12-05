@@ -2,6 +2,9 @@ package com.integrador.dto;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -40,19 +43,18 @@ public class EventoDTO implements Serializable {
 
 	private String enderecoLogradouro;
 	
-	private String categoriaNome;
-	
-	private Long categoriaId;
+	 private Set<CategoriaDTO> categorias = new HashSet<>();
 
 	public EventoDTO() {
 	}
 
-	public EventoDTO(Long id, String titulo, String localNome, Instant data, String descricao) {
+	public EventoDTO(Long id, String titulo, String localNome, Instant data, String descricao, Set<CategoriaDTO> categorias) {
 		this.id = id;
 		this.titulo = titulo;
 		this.localNome = localNome;
 		this.data = data;
 		this.descricao = descricao;
+		this.categorias = categorias;
 	}
 
 	public EventoDTO(Evento entity) {
@@ -65,6 +67,7 @@ public class EventoDTO implements Serializable {
 		this.enderecoNumero = entity.getEndereco().getNumero();
 		this.enderecoComplemento = entity.getEndereco().getComplemento();
 		this.enderecoLogradouro = entity.getEndereco().getLogradouro();
+		this.categorias = entity.getTipos().stream().map(e -> new CategoriaDTO(e)).collect(Collectors.toSet());
 	}
 
 	public Long getId() {
@@ -138,26 +141,14 @@ public class EventoDTO implements Serializable {
 	public void setEnderecoLogradouro(String enderecoLogradouro) {
 		this.enderecoLogradouro = enderecoLogradouro;
 	}
-	
-	public String getCategoriaNome() {
-		return categoriaNome;
-	}
 
-	public void setCategoriaNome(String categoriaNome) {
-		this.categoriaNome = categoriaNome;
-	}
-
-	public Long getCategoriaId() {
-		return categoriaId;
-	}
-
-	public void setCategoriaId(Long categoriaId) {
-		this.categoriaId = categoriaId;
+	public Set<CategoriaDTO> getCategorias() {
+		return categorias;
 	}
 
 	public Evento toEntity() {
 		Endereco endereco = new Endereco(enderecoId, enderecoLogradouro, enderecoNumero, enderecoComplemento, null);
-		return new Evento(id, titulo, localNome, data, descricao, endereco);
+		return new Evento(id, titulo, localNome, data, descricao, endereco,categorias);
 	}
 
 }
