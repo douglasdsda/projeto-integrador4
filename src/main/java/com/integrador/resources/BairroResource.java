@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.integrador.dto.BairroCadastroDTO;
 import com.integrador.dto.BairroDTO;
 import com.integrador.services.BairroService;
 
@@ -27,6 +28,13 @@ public class BairroResource {
 	
 	@Autowired
 	private BairroService service;
+	
+	@GetMapping(value = "/findBairroCadastro")
+	@PreAuthorize("hasAnyRole('ADMIN')")
+	public ResponseEntity<List<BairroCadastroDTO>> findBairroCadastro() {
+		List<BairroCadastroDTO> list = service.findBairroCadastro();
+		return ResponseEntity.ok().body(list);
+	}
 	
 	@GetMapping
 	@PreAuthorize("hasAnyRole('ADMIN')")

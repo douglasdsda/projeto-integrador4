@@ -126,8 +126,8 @@ public class TestConfig implements CommandLineRunner {
 
 		estadoRepository.saveAll(Arrays.asList(es1, es2));
 
-		Cidade cd1 = new Cidade(1, "Uberlandia", es1);
-		Cidade cd2 = new Cidade(2, "Campinas", es2);
+		Cidade cd1 = new Cidade(1l, "Uberlandia", es1);
+		Cidade cd2 = new Cidade(2l, "Campinas", es2);
 
 		cidadeRepository.saveAll(Arrays.asList(cd1, cd2));
 

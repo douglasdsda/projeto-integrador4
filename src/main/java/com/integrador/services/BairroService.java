@@ -12,6 +12,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import com.integrador.dto.BairroCadastroDTO;
 import com.integrador.dto.BairroDTO;
 import com.integrador.entities.Bairro;
 import com.integrador.repository.BairroRepository;
@@ -66,6 +67,11 @@ public class BairroService {
 		Bairro entity = obj.toEntity();
 		entity = repository.save(entity);
 		return new BairroDTO(entity);
+	}
+
+	@Transactional
+	public List<BairroCadastroDTO> findBairroCadastro() {
+		return repository.findAll().stream().map(e -> new BairroCadastroDTO(e)).collect(Collectors.toList());
 	}
 	
 
