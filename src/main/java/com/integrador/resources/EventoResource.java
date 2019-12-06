@@ -99,7 +99,7 @@ public class EventoResource {
 
 	@PostMapping
 	@PreAuthorize("hasAnyRole('ADMIN')")
-	public ResponseEntity<EventoDTO> insert(@Valid @RequestBody EventoDTO obj) {
+	public ResponseEntity<EventoDTO> insert(  @RequestBody EventoDTO obj) {
 		EventoDTO newDTO = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newDTO.getId()).toUri();
 		return ResponseEntity.created(uri).body(newDTO);
@@ -109,6 +109,14 @@ public class EventoResource {
 	@PreAuthorize("hasAnyRole('ADMIN')")
 	public ResponseEntity<EventoDTO> insert(@Valid @RequestBody EventoDTOeEnderecoDTO dto) {
 		EventoDTO newDTO = service.insert(dto);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newDTO.getId()).toUri();
+		return ResponseEntity.created(uri).body(newDTO);
+	}
+	
+	@PostMapping(value = "/categoriaEndereco")
+	@PreAuthorize("hasAnyRole('ADMIN')")
+	public ResponseEntity<EventoDTO> categoriaEndereco(@Valid @RequestBody EventoDTO obj) {
+		EventoDTO newDTO = service.categoriaEndereco(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newDTO.getId()).toUri();
 		return ResponseEntity.created(uri).body(newDTO);
 	}

@@ -1,11 +1,13 @@
 package com.integrador.services;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityNotFoundException;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -15,6 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.integrador.dto.CategoriaDTO;
 import com.integrador.dto.EventoDTO;
 import com.integrador.dto.EventoDTOeEnderecoDTO;
 import com.integrador.entities.Categoria;
@@ -104,8 +107,17 @@ public class EventoService {
 		entity.setTitulo(obj.getTitulo());
 	}
 
+	@Transactional
 	public EventoDTO insert(EventoDTO obj) {
 		Evento entity = obj.toEntity();
+		entity.setData(Instant.now());
+
+		for (CategoriaDTO categoria : obj.getCategorias()) {
+			entity.getTipos().add(new Categoria(categoria.getId(), null));
+		}
+
+		entity = repository.save(entity);
+		 
 		entity = repository.save(entity);
 		return new EventoDTO(entity);
 	}
@@ -142,6 +154,15 @@ public class EventoService {
 	public List<EventoDTO> filtroCategoriaETitulo(Long categoriaId, String titulo) {
 		List<Evento> list = repository.findByCategoriaETitulo(categoriaId, titulo);
 		return list.stream().map(e -> new EventoDTO(e)).collect(Collectors.toList());
+	}
+
+	@Transactional
+	public EventoDTO categoriaEndereco(@Valid EventoDTO dto) {
+
+		Evento entityEvento = dto.toEntity();
+		entityEvento = repository.save(entityEvento);
+
+		return new EventoDTO(entityEvento);
 	}
 
 }

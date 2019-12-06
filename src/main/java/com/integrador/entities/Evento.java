@@ -69,7 +69,7 @@ public class Evento implements Serializable {
 		this.data = data;
 		this.descricao = descricao;
 		this.endereco = endereco;
-		if(categorias != null) this.tipos =  categorias.stream().map(e -> new CategoriaDTO().toEntity()).collect(Collectors.toSet());
+		//if(categorias != null) this.tipos =  categorias.stream().map(e -> new CategoriaDTO().toEntity()).collect(Collectors.toSet());
 	}
 
 	public Set<Usuario> getParticipantes() {

@@ -145,6 +145,7 @@ public class EventoDTO implements Serializable {
 	public Set<CategoriaDTO> getCategorias() {
 		return categorias;
 	}
+	
 
 	public Evento toEntity() {
 		Endereco endereco = new Endereco(enderecoId, enderecoLogradouro, enderecoNumero, enderecoComplemento, null);
