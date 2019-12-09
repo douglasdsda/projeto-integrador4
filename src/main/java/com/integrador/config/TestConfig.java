@@ -126,8 +126,8 @@ public class TestConfig implements CommandLineRunner {
 
 		estadoRepository.saveAll(Arrays.asList(es1, es2));
 
-		Cidade cd1 = new Cidade(1, "Uberlandia", es1);
-		Cidade cd2 = new Cidade(2, "Campinas", es2);
+		Cidade cd1 = new Cidade(1l, "Uberlandia", es1);
+		Cidade cd2 = new Cidade(2l, "Campinas", es2);
 
 		cidadeRepository.saveAll(Arrays.asList(cd1, cd2));
 
@@ -146,15 +146,15 @@ public class TestConfig implements CommandLineRunner {
 
 		enderecoRepository.saveAll(Arrays.asList(e1, e2, e3, e4, e5));
 
-		Evento ev1 = new Evento(null, "Gustavo Lima", "Shopping", Instant.now(), "Sertenejo", e1);
-		Evento ev2 = new Evento(null, "Cinema Free", "Centro", Instant.now(), "Cinema", e2);
-		Evento ev3 = new Evento(null, "Show do Joao", "Shopping", Instant.now(), "Joao", e3);
-		Evento ev4 = new Evento(null, "Joao e Maria", "Shopping", Instant.now(), "Joaomaria", e4);
-		Evento ev5 = new Evento(null, "Minicurso", "Shopping", Instant.now(), "Java", e5);
+		Evento ev1 = new Evento(null, "Gustavo Lima", "Shopping", Instant.now(), "Sertenejo", e1,null);
+		Evento ev2 = new Evento(null, "Cinema Free", "Centro", Instant.now(), "Cinema", e2,null);
+		Evento ev3 = new Evento(null, "Show do Joao", "Shopping", Instant.now(), "Joao", e3,null);
+		Evento ev4 = new Evento(null, "Joao e Maria", "Shopping", Instant.now(), "Joaomaria", e4,null);
+		Evento ev5 = new Evento(null, "Minicurso", "Shopping", Instant.now(), "Java", e5,null);
 
 		eventoRepository.saveAll(Arrays.asList(ev1, ev2, ev3, ev4, ev5));
 
-		ev1.getTipos().add(c1);
+		ev1.getTipos().addAll(Arrays.asList(c1,c2));
 		ev2.getTipos().add(c2);
 		ev3.getTipos().add(c1);
 		ev4.getTipos().add(c2);

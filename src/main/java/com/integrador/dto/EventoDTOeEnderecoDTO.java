@@ -2,6 +2,7 @@ package com.integrador.dto;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.Set;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -45,6 +46,8 @@ public class EventoDTOeEnderecoDTO implements Serializable {
 		
 		private Long bairroId;
 		
+		Set<CategoriaDTO> categorias;
+		
 		public EventoDTOeEnderecoDTO() {}
 		
 		
@@ -55,7 +58,7 @@ public class EventoDTOeEnderecoDTO implements Serializable {
 				@NotNull(message = "ca't be null") Instant data,
 				@NotEmpty(message = "can't be empty") @Length(min = 3, max = 80, message = "string length must be between 3 and 80") String descricao,
 				Long enderecoId, Long enderecoNumero, String enderecoComplemento, String enderecoLogradouro,
-				Long bairroId) {
+				Long bairroId, Set<CategoriaDTO> categorias) {
 			super();
 			this.id = id;
 			this.titulo = titulo;
@@ -67,6 +70,7 @@ public class EventoDTOeEnderecoDTO implements Serializable {
 			this.enderecoComplemento = enderecoComplemento;
 			this.enderecoLogradouro = enderecoLogradouro;
 			this.bairroId = bairroId;
+			this.categorias = categorias;
 		}
 
 
@@ -159,7 +163,7 @@ public class EventoDTOeEnderecoDTO implements Serializable {
 		public Evento toEntityEvento() {
 			Bairro bairro = new Bairro(bairroId, null, null);
 			Endereco endereco = new Endereco(id, enderecoLogradouro, enderecoNumero, enderecoComplemento, bairro);
-			return new Evento(id, titulo, localNome, data, descricao, endereco);
+			return new Evento(id, titulo, localNome, data, descricao, endereco, categorias);
 		}
 
 }

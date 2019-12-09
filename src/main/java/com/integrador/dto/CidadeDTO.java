@@ -13,7 +13,7 @@ import com.integrador.entities.Pais;
 public class CidadeDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	private Integer id;
+	private Long id;
 	
 	@NotEmpty(message = "can't be empty")
 	@Length(min = 3, max = 80, message = "string length must be between 3 and 80")
@@ -27,7 +27,7 @@ public class CidadeDTO implements Serializable {
 		
 	}
 
-	public CidadeDTO(Integer id, String nome) {
+	public CidadeDTO(Long id, String nome) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -42,11 +42,11 @@ public class CidadeDTO implements Serializable {
 		this.estadoPais = entity.getEstado().getPais();
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

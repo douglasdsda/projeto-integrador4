@@ -18,6 +18,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.springframework.transaction.annotation.Transactional;
+
+import com.integrador.dto.CategoriaDTO;
+
 @Entity
 @Table(name = "EVENTO")
 public class Evento implements Serializable {
@@ -57,7 +61,7 @@ public class Evento implements Serializable {
 	public Evento() {
 	}
 
-	public Evento(Long id, String titulo, String localNome, Instant data, String descricao, Endereco endereco) {
+	public Evento(Long id, String titulo, String localNome, Instant data, String descricao, Endereco endereco, Set<CategoriaDTO> categorias) {
 		super();
 		this.id = id;
 		this.titulo = titulo;
@@ -65,6 +69,7 @@ public class Evento implements Serializable {
 		this.data = data;
 		this.descricao = descricao;
 		this.endereco = endereco;
+		//if(categorias != null) this.tipos =  categorias.stream().map(e -> new CategoriaDTO().toEntity()).collect(Collectors.toSet());
 	}
 
 	public Set<Usuario> getParticipantes() {
@@ -119,6 +124,7 @@ public class Evento implements Serializable {
 		this.endereco = endereco;
 	}
 	
+	@Transactional
 	public Set<Categoria> getTipos() {
 		return tipos;
 	}

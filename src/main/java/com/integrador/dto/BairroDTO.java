@@ -19,7 +19,7 @@ public class BairroDTO implements Serializable {
 	@Length(min = 3, max = 80, message = "string length must be between 3 and 80")
 	private String nome;
 
-	private Integer cidadeId;
+	private Long cidadeId;
 	private String cidadeNome;
 	private Estado cidadeEstado;
 		
@@ -57,11 +57,11 @@ public class BairroDTO implements Serializable {
 		this.nome = nome;
 	}
 	
-	public Integer getCidadeId() {
+	public Long getCidadeId() {
 		return cidadeId;
 	}
 
-	public void setCidadeId(Integer cidadeId) {
+	public void setCidadeId(Long cidadeId) {
 		this.cidadeId = cidadeId;
 	}
 

@@ -27,7 +27,6 @@ public class EnderecoDTO implements Serializable {
 	private String complemento;
 
 	public EnderecoDTO() {
-
 	}
 
 	public EnderecoDTO(Long id, String logradouro, Long numero, String complemento) {

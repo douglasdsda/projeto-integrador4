@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.integrador.dto.EnderecoDTO;
+import com.integrador.dto.ListaEnderecoDTO;
 import com.integrador.services.EnderecoService;
 
 @RestController
@@ -32,6 +33,13 @@ public class EnderecoResource {
 	@PreAuthorize("hasAnyRole('ADMIN')")
 	public ResponseEntity<List<EnderecoDTO>> findAll() {
 		List<EnderecoDTO> list = service.findAll();
+		return ResponseEntity.ok().body(list);
+	}
+	
+	@GetMapping(value = "pegarAllEnderecos")
+	@PreAuthorize("hasAnyRole('ADMIN')")
+	public ResponseEntity<ListaEnderecoDTO> findListaEnderecos() {
+		ListaEnderecoDTO list = service.findListaEnderecos();
 		return ResponseEntity.ok().body(list);
 	}
 	
