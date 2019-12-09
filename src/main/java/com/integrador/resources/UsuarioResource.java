@@ -2,6 +2,7 @@ package com.integrador.resources;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Set;
 
 import javax.validation.Valid;
 
@@ -57,6 +58,13 @@ public class UsuarioResource {
 		return ResponseEntity.created(uri).body(newDTO);
 	}
 
+	@PutMapping(value = "/{id}/addcategories")
+	public ResponseEntity<Void> addCategories(@PathVariable Long id, @RequestBody Set<CategoriaDTO>categorias) {
+		service.addCategories(id, categorias);
+		return ResponseEntity.noContent().build();
+	}
+
+	
 	@PutMapping(value = "/{id}/addcategory")
 	public ResponseEntity<Void> addCategory(@PathVariable Long id, @RequestBody CategoriaDTO categoryDto) {
 		service.addCategory(id, categoryDto);

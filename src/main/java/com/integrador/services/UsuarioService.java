@@ -148,4 +148,16 @@ public class UsuarioService implements UserDetailsService {
 		Set<Usuario> set = repository.getOne(usuarioId).getSeguidores();
 		return set.stream().map(e -> new UsuarioDTO(e)).collect(Collectors.toList());
 	}
+	
+	@Transactional
+	public void addCategories(Long id, Set<CategoriaDTO> categorias) {
+		authService.validateSelfOrAdmin(id);
+		Usuario usuario = repository.getOne(id);
+ 
+		Set<Categoria> categoriasSalvas = categorias.stream().map(e -> new CategoriaDTO(categoryRepository.getOne(e.getId())).toEntity()).collect(Collectors.toSet());
+		usuario.getCategorias().addAll(categoriasSalvas);
+		usuario.setFirstLogin(false);
+		repository.save(usuario);
+		
+	}
 }
