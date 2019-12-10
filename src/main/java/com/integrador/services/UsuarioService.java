@@ -1,5 +1,6 @@
 package com.integrador.services;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -150,12 +151,16 @@ public class UsuarioService implements UserDetailsService {
 	}
 	
 	@Transactional
-	public void addCategories(Long id, Set<CategoriaDTO> categorias) {
+	public void addCategories(Long id, List<CategoriaDTO> categorias) {
 		authService.validateSelfOrAdmin(id);
 		Usuario usuario = repository.getOne(id);
+		Set<Categoria> categoriasSalvas = new HashSet<>();
+		
+		 categoriasSalvas = categorias.stream().map(e -> new CategoriaDTO(categoryRepository.getOne(e.getId())).toEntity()).collect(Collectors.toSet());
+		 for (Categoria categoria : categoriasSalvas) {
+			 usuario.getCategorias().add(categoria);
+		}
  
-		Set<Categoria> categoriasSalvas = categorias.stream().map(e -> new CategoriaDTO(categoryRepository.getOne(e.getId())).toEntity()).collect(Collectors.toSet());
-		usuario.getCategorias().addAll(categoriasSalvas);
 		usuario.setFirstLogin(false);
 		repository.save(usuario);
 		
