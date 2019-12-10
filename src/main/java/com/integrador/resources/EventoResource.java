@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.integrador.dto.CategoriaDTO;
 import com.integrador.dto.EventoDTO;
 import com.integrador.dto.EventoDTOeEnderecoDTO;
 import com.integrador.services.EventoService;
@@ -76,6 +77,12 @@ public class EventoResource {
 		List<EventoDTO> dtos = service.findByCategoria(categoriaId);
 		return ResponseEntity.ok().body(dtos);
 	}
+	
+	@GetMapping(value = "/eventosPorCategoriaUsuario/{usuarioId}")
+	public ResponseEntity<List<CategoriaDTO>> eventosPorCategoriaUsuario(@PathVariable Long usuarioId) {
+		List<CategoriaDTO> dtos = service.eventosPorCategoriaUsuario(usuarioId);
+		return ResponseEntity.ok().body(dtos);
+	}
 
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<EventoDTO> findById(@PathVariable Long id) {
@@ -120,5 +127,7 @@ public class EventoResource {
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newDTO.getId()).toUri();
 		return ResponseEntity.created(uri).body(newDTO);
 	}
+	
+	
 
 }

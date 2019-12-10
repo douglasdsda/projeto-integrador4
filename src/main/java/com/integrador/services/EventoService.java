@@ -23,9 +23,11 @@ import com.integrador.dto.EventoDTOeEnderecoDTO;
 import com.integrador.entities.Categoria;
 import com.integrador.entities.Endereco;
 import com.integrador.entities.Evento;
+import com.integrador.entities.Usuario;
 import com.integrador.repository.CategoriaRepository;
 import com.integrador.repository.EnderecoRepository;
 import com.integrador.repository.EventoRepository;
+import com.integrador.repository.UsuarioRepository;
 import com.integrador.services.exceptions.DatabaseException;
 import com.integrador.services.exceptions.ParamFormatException;
 import com.integrador.services.exceptions.ResourceNotFoundException;
@@ -41,6 +43,9 @@ public class EventoService {
 
 	@Autowired
 	private CategoriaRepository categoriaRepository;
+
+	@Autowired
+	private UsuarioRepository usuarioRepository;
 
 	public List<EventoDTO> findAll() {
 		List<Evento> list = repository.findAll();
@@ -117,7 +122,7 @@ public class EventoService {
 		}
 
 		entity = repository.save(entity);
-		 
+
 		entity = repository.save(entity);
 		return new EventoDTO(entity);
 	}
@@ -163,6 +168,15 @@ public class EventoService {
 		entityEvento = repository.save(entityEvento);
 
 		return new EventoDTO(entityEvento);
+	}
+
+	public List<CategoriaDTO> eventosPorCategoriaUsuario(Long usuarioId) {
+		Usuario usuario = usuarioRepository.getOne(usuarioId);
+		List<CategoriaDTO> categoris = new ArrayList<>();
+		if (!usuario.getCategorias().isEmpty()) {
+			categoris = usuario.getCategorias().stream().map(e -> new CategoriaDTO(e)).collect(Collectors.toList());
+		}
+		return categoris;
 	}
 
 }

@@ -101,4 +101,6 @@ public class UsuarioResource {
 		List<UsuarioDTO> dtos = service.findBySeguidores(usuarioId);
 		return ResponseEntity.ok().body(dtos);
 	}
+	
+ 
 }
